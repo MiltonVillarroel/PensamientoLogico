@@ -184,6 +184,156 @@
       box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
     }
 
+    /* BOTÓN QR */
+    .btn-qr {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-qr:hover {
+      background-color: var(--bg-subtle);
+      border-color: var(--border-subtle);
+      color: var(--brand-accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-qr svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* VENTANA EMERGENTE (MODAL QR) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.25rem 2rem 1.75rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.45);
+      text-align: center;
+      position: relative;
+      transform: translateY(16px) scale(0.97);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.is-open .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      background: var(--bg-hover);
+      color: var(--text-main);
+      transform: rotate(90deg);
+    }
+
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--brand-light);
+      color: var(--brand-primary);
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-mono);
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .qr-frame {
+      background: #ffffff;
+      padding: 1.15rem;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 1rem;
+    }
+
+    .qr-frame img {
+      width: 240px;
+      height: 240px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .modal-foot-note {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-subtle);
+      letter-spacing: 0.04em;
+    }
+
     .theme-toggle-btn {
       width: 38px;
       height: 38px;
@@ -512,7 +662,7 @@
       </div>
 
       <div class="header-actions">
-        <!-- Único botón para acceder al Drive -->
+        <!-- Botón para acceder al Drive -->
         <a href="https://drive.google.com/drive/folders/1xnENHYwQD6CFRR8W3Zmw0uZLHdR57pXZ?usp=sharing" 
            target="_blank" 
            rel="noopener noreferrer" 
@@ -520,6 +670,18 @@
            title="Acceder al material en Google Drive">
           <span>Material</span>
         </a>
+
+        <!-- Botón para abrir QR en ventana emergente -->
+        <button id="btn-qr-modal" class="btn-qr" title="Escanear código QR para acceder desde el móvil" aria-haspopup="dialog" aria-controls="qr-modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+            <path d="M7 7h.01M17 7h.01M17 17h.01M7 17h.01"></path>
+          </svg>
+          <span>QR</span>
+        </button>
 
         <!-- Alternancia de Tema -->
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar entre modo claro y oscuro" title="Cambiar tema">
@@ -787,7 +949,28 @@
     </div>
   </footer>
 
-  <!-- SCRIPT DE TEMA -->
+  <!-- VENTANA EMERGENTE (MODAL QR) -->
+  <div id="qr-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-labelledby="qr-modal-title">
+    <div class="modal-card" role="document">
+      <button id="qr-modal-close" class="modal-close-btn" aria-label="Cerrar ventana emergente" title="Cerrar">✕</button>
+      
+      <div class="modal-badge">Acceso Móvil</div>
+      <h3 id="qr-modal-title" class="modal-title">Código QR del Curso</h3>
+      <p class="modal-desc">
+        Escanea este código con la cámara de tu teléfono para abrir el portal y acceder a las diapositivas interactivas en vivo.
+      </p>
+
+      <div class="qr-frame">
+        <img src="qr.svg" alt="Código QR para acceder al curso de Pensamiento Lógico" width="240" height="240">
+      </div>
+
+      <div class="modal-foot-note">
+        Pensamiento Lógico · Carrera de Psicología (UMSA)
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE TEMA Y VENTANA EMERGENTE -->
   <script>
     (function() {
       const html = document.documentElement;
@@ -814,6 +997,38 @@
         const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
         applyTheme(newTheme);
         localStorage.setItem(THEME_KEY, newTheme);
+      });
+
+      // Control de Ventana Emergente QR
+      const qrModal = document.getElementById('qr-modal');
+      const btnQrOpen = document.getElementById('btn-qr-modal');
+      const btnQrClose = document.getElementById('qr-modal-close');
+
+      function openQrModal() {
+        qrModal.classList.add('is-open');
+        qrModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeQrModal() {
+        qrModal.classList.remove('is-open');
+        qrModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      btnQrOpen.addEventListener('click', openQrModal);
+      btnQrClose.addEventListener('click', closeQrModal);
+
+      // Cerrar al hacer clic en el fondo oscuro
+      qrModal.addEventListener('click', (e) => {
+        if (e.target === qrModal) closeQrModal();
+      });
+
+      // Cerrar con la tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && qrModal.classList.contains('is-open')) {
+          closeQrModal();
+        }
       });
     })();
   </script>
