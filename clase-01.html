@@ -8,7 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style Fondo y superficies </em>/
+  <style>
+    /* ===================================================
+       VARIABLES DE TEMA (SINCRONIZADAS CON INDEX - MODO CLARO POR DEFECTO)
+    =================================================== */
+    :root {
+      /* Fondo y superficies */
       --bg-base:        #f8fafc;
       --bg-surface:     #ffffff;
       --bg-card:        #ffffff;
@@ -17,14 +22,14 @@
       --bg-primary:     #f8fafc;
       --bg-secondary:   #ffffff;
 
-      /<em> Textos </em>/
+      /* Textos */
       --text-main:      #0f172a;
       --text-primary:   #0f172a;
       --text-secondary: #334155;
       --text-muted:     #64748b;
       --text-subtle:    #64748b;
 
-      /<em> Acentos Académicos </em>/
+      /* Acentos Académicos */
       --brand-primary:  #1e3a8a;
       --brand-accent:   #2563eb;
       --brand-light:    #dbeafe;
@@ -40,24 +45,24 @@
       --pink:           #be185d;
       --red:            #dc2626;
 
-      /<em> Bordes y Sombras </em>/
+      /* Bordes y Sombras */
       --border:         #e2e8f0;
       --border-accent:  rgba(37, 99, 235, 0.35);
       --shadow-sm:      0 2px 6px rgba(0, 0, 0, 0.05);
       --shadow-md:      0 12px 28px rgba(15, 23, 42, 0.09);
 
-      /<em> Gradientes Académicos </em>/
+      /* Gradientes Académicos */
       --grad-accent:    linear-gradient(135deg, #1e3a8a, #2563eb);
       --grad-bg:        linear-gradient(165deg, #eff6ff 0%, #f8fafc 50%, #f1f5f9 100%);
 
-      /<em> Tipografía </em>/
+      /* Tipografía */
       --font-serif:     'EB Garamond', Georgia, serif;
       --font-display:   'Cinzel', serif;
       --font-sans:      'Inter', system-ui, -apple-system, sans-serif;
       --font-mono:      'Roboto Mono', monospace;
     }
 
-    /<em> MODO OSCURO SINCRONIZADO </em>/
+    /* MODO OSCURO SINCRONIZADO */
     [data-theme="dark"] {
       --bg-base:        #090d16;
       --bg-surface:     #0f172a;
@@ -100,7 +105,7 @@
     /* ===================================================
        RESET & BASE
     =================================================== */
-    <em>, </em>::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html, body { width:100%; height:100%; overflow:hidden; }
 
     body {
@@ -594,7 +599,7 @@
 
     .ex-proc-title { font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); }
 
-    /<em> Sub-tabs de incisos </em>/
+    /* Sub-tabs de incisos */
     .ex-tabs-bar {
       display: flex;
       gap: 0.35rem;
@@ -615,7 +620,7 @@
       border-color: var(--accent);
     }
 
-    /<em> Inciso content </em>/
+    /* Inciso content */
     .ex-inciso-pane {
       display: none;
       flex-direction: column;
@@ -660,7 +665,7 @@
       animation: fadeIn .3s ease;
     }
 
-    /<em> TETRATLÓN HIGHLIGHTS </em>/
+    /* TETRATLÓN HIGHLIGHTS */
     .t-premise, .t-conclusion, .t-indicator {
       transition: all 0.3s ease;
       border-radius: 2px;
@@ -720,7 +725,7 @@
 
     .ex-proc-title { font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); }
 
-    /<em> Sub-tabs de incisos </em>/
+    /* Sub-tabs de incisos */
     .ex-tabs-bar {
       display: flex;
       gap: 0.35rem;
@@ -741,7 +746,7 @@
       border-color: var(--accent);
     }
 
-    /<em> Inciso content </em>/
+    /* Inciso content */
     .ex-inciso-pane {
       display: none;
       flex-direction: column;
@@ -786,7 +791,7 @@
       animation: fadeIn .3s ease;
     }
 
-    /<em> TETRATLÓN HIGHLIGHTS </em>/
+    /* TETRATLÓN HIGHLIGHTS */
     .t-premise, .t-conclusion, .t-indicator {
       transition: all 0.3s ease;
       border-radius: 2px;
@@ -813,12 +818,7 @@
       .ex-container { grid-template-columns: 1fr; }
     }
 
-  >>
-    /* ===================================================
-       VARIABLES DE TEMA (SINCRONIZADAS CON INDEX - MODO CLARO POR DEFECTO)
-    =================================================== */
-    :root {
-      /<em</style>
+  </style>
 </head>
 <body>
 
@@ -2012,14 +2012,14 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Loftus y Palmer (1974) mostraron a varios grupos de estudiantes la misma filmación de un choque. La pregunta sobre la velocidad de los autos se formuló con un verbo que sugería un impacto más fuerte para un grupo que para el otro. Una semana después, sin volver a mostrarles la filmación, les preguntaron si habían visto vidrios rotos. En la filmación no había vidrios rotos. Respondieron que sí <strong>16 de 50</strong> estudiantes del grupo que recibió el verbo más intenso y <strong>7 de 50</strong> del otro grupo. <a href="https://web.stanford.edu/class/psych205/papers/Loftus-Palmer-1974.pdf#page=3" target="_blank" rel="noopener">Experimento 2, p. 587</a></p><p style="margin-bottom:0.65rem;">Al comentar el estudio en clase, se escribieron estas expresiones en la pizarra.</p><p style="margin-bottom:0.65rem;">- <strong>I.</strong> «Memoria de testigos».</p><p style="margin-bottom:0.65rem;">- <strong>II.</strong> «¿Había vidrios rotos en la filmación?».</p><p style="margin-bottom:0.65rem;">- <strong>III.</strong> «Compara las respuestas de los dos grupos».</p><p style="margin-bottom:0.65rem;">- <strong>IV.</strong> «Los estudiantes que respondieron que sí mintieron deliberadamente».</p>
+          <p style="margin-bottom:0.65rem;">Loftus y Palmer (1974) mostraron a varios grupos de estudiantes la misma filmación de un choque. La pregunta sobre la velocidad de los autos se formuló con un verbo que sugería un impacto más fuerte para un grupo que para el otro. Una semana después, sin volver a mostrarles la filmación, les preguntaron si habían visto vidrios rotos. En la filmación no había vidrios rotos. Respondieron que sí <strong>16 de 50</strong> estudiantes del grupo que recibió el verbo más intenso y <strong>7 de 50</strong> del otro grupo. [Experimento 2, p. 587](https://web.stanford.edu/class/psych205/papers/Loftus-Palmer-1974.pdf#page=3)</p><p style="margin-bottom:0.65rem;">Al comentar el estudio en clase, se escribieron estas expresiones en la pizarra.</p><p style="margin-bottom:0.65rem;">- <strong>I.</strong> «Memoria de testigos».</p><p style="margin-bottom:0.65rem;">- <strong>II.</strong> «¿Había vidrios rotos en la filmación?».</p><p style="margin-bottom:0.65rem;">- <strong>III.</strong> «Compara las respuestas de los dos grupos».</p><p style="margin-bottom:0.65rem;">- <strong>IV.</strong> «Los estudiantes que respondieron que sí mintieron deliberadamente».</p>
         </div>
 
         
         <div class="ex-proc-box">
           <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
           <ol style="margin-left:1.15rem; font-size:0.82rem; line-height:1.45;">
-            <li style="margin-bottom:0.35rem;"><strong>Clasificar las expresiones.</strong> ¿Cuál es un concepto, una pregunta, una instrucción o una proposición? ¿Por qué una de ellas puede ser verdadera o falsa aunque todavía no sepamos si lo es?</li><li style="margin-bottom:0.35rem;"><strong>Separar los datos.</strong> Puedes escribir una oración sobre lo que aparecía en la filmación y otra sobre lo que dijeron los participantes. Los datos permiten comparar las respuestas de ambos grupos.</li><li style="margin-bottom:0.35rem;"><strong>Evaluar la afirmación IV.</strong> ¿Qué dato podría llevar a alguien a decir que los estudiantes mintieron? ¿Qué información le faltaría para afirmar que lo hicieron <em>deliberadamente</em>?</li>
+            <li style="margin-bottom:0.35rem;"><strong>Clasificar las expresiones.</strong> ¿Cuál es un concepto, una pregunta, una instrucción o una proposición? ¿Por qué una de ellas puede ser verdadera o falsa aunque todavía no sepamos si lo es?</li><li style="margin-bottom:0.35rem;"><strong>Separar los datos.</strong> Puedes escribir una oración sobre lo que aparecía en la filmación y otra sobre lo que dijeron los participantes. Los datos permiten comparar las respuestas de ambos grupos.</li><li style="margin-bottom:0.35rem;"><strong>Evaluar la afirmación IV.</strong> ¿Qué dato podría llevar a alguien a decir que los estudiantes mintieron? ¿Qué información le faltaría para afirmar que lo hicieron *deliberadamente*?</li>
           </ol>
         </div>
       </div>
@@ -2197,7 +2197,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Bastani et al. (2025) estudiaron el uso de asistentes de inteligencia artificial en clases de matemática de secundaria. Durante la práctica, el grupo con acceso a un asistente básico de IA obtuvo un promedio mayor que el grupo que practicó sin IA. Después, ambos grupos rindieron una prueba sin el asistente. En esa prueba, el promedio del grupo que había practicado con el asistente básico fue inferior al del otro grupo. Las respuestas a una encuesta no reflejaron esa desventaja en la percepción que el primer grupo tenía de su desempeño o aprendizaje. <a href="https://hamsabastani.github.io/education_llm.pdf#page=10" target="_blank" rel="noopener">Estudio original, sección 3</a></p><p style="margin-bottom:0.65rem;">Al comentar el estudio, una estudiante escribió «Si el grupo resolvió mejor la guía, aprendió más».</p>
+          <p style="margin-bottom:0.65rem;">Bastani et al. (2025) estudiaron el uso de asistentes de inteligencia artificial en clases de matemática de secundaria. Durante la práctica, el grupo con acceso a un asistente básico de IA obtuvo un promedio mayor que el grupo que practicó sin IA. Después, ambos grupos rindieron una prueba sin el asistente. En esa prueba, el promedio del grupo que había practicado con el asistente básico fue inferior al del otro grupo. Las respuestas a una encuesta no reflejaron esa desventaja en la percepción que el primer grupo tenía de su desempeño o aprendizaje. [Estudio original, sección 3](https://hamsabastani.github.io/education_llm.pdf#page=10)</p><p style="margin-bottom:0.65rem;">Al comentar el estudio, una estudiante escribió «Si el grupo resolvió mejor la guía, aprendió más».</p>
         </div>
 
         
@@ -2382,7 +2382,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Este caso didáctico permite distinguir actividades del pensamiento siguiendo las nociones de concepto, juicio y razonamiento del libro base y de Copi y Cohen (2007, pp. 17–22).</p><p style="margin-bottom:0.65rem;">Ana estudia cuando <strong>escucha vibrar su teléfono y ve una luz en la pantalla</strong>. Antes de abrirlo, <strong>imagina que una amiga le escribió</strong>. Recuerda que una <em>notificación</em> es un aviso digital que una aplicación muestra para comunicar algo. Luego afirma «El teléfono acaba de emitir una notificación».</p><p style="margin-bottom:0.65rem;">Al revisar el aviso, observa que aparece en la aplicación del curso. La docente había establecido que todos los avisos de esa aplicación corresponden al curso. Ana relaciona esa información con lo que observa y concluye «Este aviso corresponde al curso».</p>
+          <p style="margin-bottom:0.65rem;">Este caso didáctico permite distinguir actividades del pensamiento siguiendo las nociones de concepto, juicio y razonamiento del libro base y de Copi y Cohen (2007, pp. 17–22).</p><p style="margin-bottom:0.65rem;">Ana estudia cuando <strong>escucha vibrar su teléfono y ve una luz en la pantalla</strong>. Antes de abrirlo, <strong>imagina que una amiga le escribió</strong>. Recuerda que una *notificación* es un aviso digital que una aplicación muestra para comunicar algo. Luego afirma «El teléfono acaba de emitir una notificación».</p><p style="margin-bottom:0.65rem;">Al revisar el aviso, observa que aparece en la aplicación del curso. La docente había establecido que todos los avisos de esa aplicación corresponden al curso. Ana relaciona esa información con lo que observa y concluye «Este aviso corresponde al curso».</p>
         </div>
 
         
@@ -2567,7 +2567,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Estos dos fragmentos son adaptaciones didácticas del segundo experimento de Stroop (1935). <a href="https://www.yorku.ca/pclassic/Stroop/" target="_blank" rel="noopener">Experimento 2, pp. 649–651</a></p><p style="margin-bottom:0.65rem;">> <strong>Fragmento I.</strong> Los participantes nombraron en voz alta el color de una serie de estímulos. En una condición vieron cuadrados de colores. En la otra vieron palabras que nombraban un color diferente de la tinta con que estaban impresas. El investigador registró el tiempo de las respuestas.</p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Fragmento II.</strong> En esta tarea, leer una palabra que nombra otro color interfiere al nombrar el color de la tinta, puesto que el tiempo promedio para dar 100 respuestas fue de 110,3 segundos con las palabras y de 63,3 segundos con los cuadrados.</p>
+          <p style="margin-bottom:0.65rem;">Estos dos fragmentos son adaptaciones didácticas del segundo experimento de Stroop (1935). [Experimento 2, pp. 649–651](https://www.yorku.ca/pclassic/Stroop/)</p><p style="margin-bottom:0.65rem;">> <strong>Fragmento I.</strong> Los participantes nombraron en voz alta el color de una serie de estímulos. En una condición vieron cuadrados de colores. En la otra vieron palabras que nombraban un color diferente de la tinta con que estaban impresas. El investigador registró el tiempo de las respuestas.</p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Fragmento II.</strong> En esta tarea, leer una palabra que nombra otro color interfiere al nombrar el color de la tinta, puesto que el tiempo promedio para dar 100 respuestas fue de 110,3 segundos con las palabras y de 63,3 segundos con los cuadrados.</p>
         </div>
 
         
@@ -2752,7 +2752,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Stothart et al. (2015) estudiaron cómo recibir avisos en el teléfono puede afectar el desempeño en una tarea de atención. El siguiente caso es <strong>inventado</strong> para practicar la forma de un argumento y se basa en el tema de las notificaciones. <a href="https://doi.org/10.1037/xhp0000100" target="_blank" rel="noopener">Estudio sobre atención y notificaciones</a></p><p style="margin-bottom:0.65rem;">En un teléfono del taller rige esta regla: «Si llega una notificación al teléfono, se ilumina la pantalla». Considera esa regla como primera premisa en ambos razonamientos.</p><p style="margin-bottom:0.65rem;">> <strong>Razonamiento I.</strong> «Llegó una notificación. Por tanto, se iluminó la pantalla».</p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Razonamiento II.</strong> «Se iluminó la pantalla. Por tanto, llegó una notificación».</p>
+          <p style="margin-bottom:0.65rem;">Stothart et al. (2015) estudiaron cómo recibir avisos en el teléfono puede afectar el desempeño en una tarea de atención. El siguiente caso es <strong>inventado</strong> para practicar la forma de un argumento y se basa en el tema de las notificaciones. [Estudio sobre atención y notificaciones](https://doi.org/10.1037/xhp0000100)</p><p style="margin-bottom:0.65rem;">En un teléfono del taller rige esta regla: «Si llega una notificación al teléfono, se ilumina la pantalla». Considera esa regla como primera premisa en ambos razonamientos.</p><p style="margin-bottom:0.65rem;">> <strong>Razonamiento I.</strong> «Llegó una notificación. Por tanto, se iluminó la pantalla».</p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Razonamiento II.</strong> «Se iluminó la pantalla. Por tanto, llegó una notificación».</p>
         </div>
 
         
@@ -2937,7 +2937,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Roediger y Karpicke (2006) compararon volver a estudiar textos con intentar recuperar de memoria lo leído. En este caso didáctico, se anotan tres decisiones posibles de Ana durante un repaso. <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Estudio sobre práctica de recuperación</a></p><p style="margin-bottom:0.65rem;">- <strong>p</strong> significa «Ana intentó recordar el texto de memoria».</p><p style="margin-bottom:0.65rem;">- <strong>q</strong> significa «Ana consultó sus apuntes».</p><p style="margin-bottom:0.65rem;">- <strong>r</strong> significa «Ana anotó sus dudas».</p>
+          <p style="margin-bottom:0.65rem;">Roediger y Karpicke (2006) compararon volver a estudiar textos con intentar recuperar de memoria lo leído. En este caso didáctico, se anotan tres decisiones posibles de Ana durante un repaso. [Estudio sobre práctica de recuperación](https://doi.org/10.1111/j.1467-9280.2006.01693.x)</p><p style="margin-bottom:0.65rem;">- <strong>p</strong> significa «Ana intentó recordar el texto de memoria».</p><p style="margin-bottom:0.65rem;">- <strong>q</strong> significa «Ana consultó sus apuntes».</p><p style="margin-bottom:0.65rem;">- <strong>r</strong> significa «Ana anotó sus dudas».</p>
         </div>
 
         
@@ -3122,7 +3122,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Para una actividad de lectura, un estudiante propone «Hay que desactivar los avisos porque es necesario leer sin avisos». Después consulta un experimento de Stothart et al. (2015) en el que recibir notificaciones alteró el desempeño en una tarea que requería mantener la atención, incluso sin manipular el teléfono. El estudio examinó esa tarea. El grupo de clase quiere saber si algo parecido ocurre al leer. <a href="https://doi.org/10.1037/xhp0000100" target="_blank" rel="noopener">Stothart et al., estudio original</a></p>
+          <p style="margin-bottom:0.65rem;">Para una actividad de lectura, un estudiante propone «Hay que desactivar los avisos porque es necesario leer sin avisos». Después consulta un experimento de Stothart et al. (2015) en el que recibir notificaciones alteró el desempeño en una tarea que requería mantener la atención, incluso sin manipular el teléfono. El estudio examinó esa tarea. El grupo de clase quiere saber si algo parecido ocurre al leer. [Stothart et al., estudio original](https://doi.org/10.1037/xhp0000100)</p>
         </div>
 
         
@@ -3307,7 +3307,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;">Imagina que editas el boletín del curso. Un compañero pidió a un <strong>modelo de lenguaje (LLM)</strong> un titular para contar un estudio sobre hábitos de repaso. El equipo dispone de la siguiente ficha del estudio y de una respuesta simulada. La tarea es decidir qué se puede publicar.</p><p style="margin-bottom:0.65rem;">> <strong>Ficha del estudio.</strong> Roediger y Karpicke (2006) compararon volver a estudiar textos con tratar de recordarlos antes de una prueba final. A los <strong>5 minutos</strong>, volver a estudiar dio mejores resultados. Cuando la prueba se tomó <strong>2 días o 1 semana</strong> después, quienes habían practicado recordar retuvieron más información. <a href="https://psychnet.wustl.edu/memory/wp-content/uploads/2018/04/Roediger-Karpicke-2006_PsychSci.pdf" target="_blank" rel="noopener">Estudio original sobre retención de textos</a></p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Respuesta simulada del LLM.</strong> «Recordar sin apuntes siempre gana. El estudio demostró que esta técnica fue superior incluso a los cinco minutos y que funciona mejor con cualquier materia. Por tanto, los estudiantes deberían reemplazar por completo la relectura».</p>
+          <p style="margin-bottom:0.65rem;">Imagina que editas el boletín del curso. Un compañero pidió a un <strong>modelo de lenguaje (LLM)</strong> un titular para contar un estudio sobre hábitos de repaso. El equipo dispone de la siguiente ficha del estudio y de una respuesta simulada. La tarea es decidir qué se puede publicar.</p><p style="margin-bottom:0.65rem;">> <strong>Ficha del estudio.</strong> Roediger y Karpicke (2006) compararon volver a estudiar textos con tratar de recordarlos antes de una prueba final. A los <strong>5 minutos</strong>, volver a estudiar dio mejores resultados. Cuando la prueba se tomó <strong>2 días o 1 semana</strong> después, quienes habían practicado recordar retuvieron más información. [Estudio original sobre retención de textos](https://psychnet.wustl.edu/memory/wp-content/uploads/2018/04/Roediger-Karpicke-2006_PsychSci.pdf)</p><p style="margin-bottom:0.65rem;">></p><p style="margin-bottom:0.65rem;">> <strong>Respuesta simulada del LLM.</strong> «Recordar sin apuntes siempre gana. El estudio demostró que esta técnica fue superior incluso a los cinco minutos y que funciona mejor con cualquier materia. Por tanto, los estudiantes deberían reemplazar por completo la relectura».</p>
         </div>
 
         
@@ -3492,7 +3492,7 @@
         </div>
         
         <div class="ex-case-body">
-          <p style="margin-bottom:0.65rem;"><strong>Caso de aula inventado</strong>, inspirado en la comparación entre recuperación de memoria y relectura de Roediger y Karpicke (2006). <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener">Estudio original</a></p><p style="margin-bottom:0.65rem;">Dos grupos de 20 estudiantes repasaron el mismo texto. El grupo A intentó recuperar las ideas de memoria durante <strong>15 minutos</strong>. El grupo B releyó el texto durante <strong>5 minutos</strong>. Al día siguiente, ambos rindieron la misma prueba sin apuntes. El promedio fue <strong>8 de 10</strong> en A y <strong>6 de 10</strong> en B. Un compañero concluyó «Intentar recordar de memoria fue lo que causó la diferencia de notas».</p><p style="margin-bottom:0.65rem;"><strong>Interacción con el chat</strong></p><p style="margin-bottom:0.65rem;">1. <strong>Primer turno.</strong> Envía el caso a un chat de IA y añade este pedido: «Explica cómo podría defenderse la conclusión del compañero usando los datos del caso. Señala un supuesto del que dependa esa defensa».</p><p style="margin-bottom:0.65rem;">2. <strong>Segundo turno.</strong> Formula una objeción tuya a la respuesta. Puedes empezar con «Mi objeción es que…» y cerrar con «¿Qué parte de tu argumento cuestiona mi objeción? Reformula tu conclusión teniendo esto en cuenta». Si el chat ya mencionó la diferencia en el tiempo de repaso, puedes preguntarle qué otra diferencia entre los grupos sería pertinente comprobar.</p>
+          <p style="margin-bottom:0.65rem;"><strong>Caso de aula inventado</strong>, inspirado en la comparación entre recuperación de memoria y relectura de Roediger y Karpicke (2006). [Estudio original](https://doi.org/10.1111/j.1467-9280.2006.01693.x)</p><p style="margin-bottom:0.65rem;">Dos grupos de 20 estudiantes repasaron el mismo texto. El grupo A intentó recuperar las ideas de memoria durante <strong>15 minutos</strong>. El grupo B releyó el texto durante <strong>5 minutos</strong>. Al día siguiente, ambos rindieron la misma prueba sin apuntes. El promedio fue <strong>8 de 10</strong> en A y <strong>6 de 10</strong> en B. Un compañero concluyó «Intentar recordar de memoria fue lo que causó la diferencia de notas».</p><p style="margin-bottom:0.65rem;"><strong>Interacción con el chat</strong></p><p style="margin-bottom:0.65rem;">1. <strong>Primer turno.</strong> Envía el caso a un chat de IA y añade este pedido: «Explica cómo podría defenderse la conclusión del compañero usando los datos del caso. Señala un supuesto del que dependa esa defensa».</p><p style="margin-bottom:0.65rem;">2. <strong>Segundo turno.</strong> Formula una objeción tuya a la respuesta. Puedes empezar con «Mi objeción es que…» y cerrar con «¿Qué parte de tu argumento cuestiona mi objeción? Reformula tu conclusión teniendo esto en cuenta». Si el chat ya mencionó la diferencia en el tiempo de repaso, puedes preguntarle qué otra diferencia entre los grupos sería pertinente comprobar.</p>
         </div>
 
         
@@ -3639,7 +3639,7 @@
               </div>
               <div class="ex-opt-item" id="opt-e9-d-D" data-correct="true">
                 <span class="ex-opt-letter">D.</span>
-                <span>«El grupo A obtuvo un promedio mayor. Como también repasó más tiempo, los datos no permiten atribuir esa diferencia únicamente a la estrategia».  ## 7. Referencias  Bastani, H., Bastani, O., Sungu, A., Ge, H., Kabakcı, Ö., & Mariman, R. (2025). Generative AI without guardrails can harm learning: Evidence from high school mathematics. <em>Proceedings of the National Academy of Sciences, 122</em>(26), Article e2422633122. https://doi.org/10.1073/pnas.2422633122  Copi, I. M., & Cohen, C. (2007). <em>Introducción a la lógica</em>. Limusa.  Loftus, E. F., & Palmer, J. C. (1974). Reconstruction of automobile destruction: An example of the interaction between language and memory. <em>Journal of Verbal Learning and Verbal Behavior, 13</em>(5), 585–589. https://doi.org/10.1016/S0022-5371(74)80011-3  Roediger, H. L., III, & Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. <em>Psychological Science, 17</em>(3), 249–255. https://doi.org/10.1111/j.1467-9280.2006.01693.x  Salazar, I., Vargas, C., Quiroga, A., & Rosasmanta, M. (s. f.). <em>Pensamiento lógico</em>. Programa de Admisión Pre-Facultativa, Carrera de Psicología, Universidad Mayor de San Andrés.  Stothart, C., Mitchum, A., & Yehnert, C. (2015). The attentional cost of receiving a cell phone notification. <em>Journal of Experimental Psychology: Human Perception and Performance, 41</em>(4), 893–897. https://doi.org/10.1037/xhp0000100  Stroop, J. R. (1935). Studies of interference in serial verbal reactions. <em>Journal of Experimental Psychology, 18</em>(6), 643–662. https://doi.org/10.1037/h0054651  Weston, A. (2006). <em>Las claves de la argumentación</em>. Ariel.</span>
+                <span>«El grupo A obtuvo un promedio mayor. Como también repasó más tiempo, los datos no permiten atribuir esa diferencia únicamente a la estrategia».  ## 7. Referencias  Bastani, H., Bastani, O., Sungu, A., Ge, H., Kabakcı, Ö., & Mariman, R. (2025). Generative AI without guardrails can harm learning: Evidence from high school mathematics. *Proceedings of the National Academy of Sciences, 122*(26), Article e2422633122. https://doi.org/10.1073/pnas.2422633122  Copi, I. M., & Cohen, C. (2007). *Introducción a la lógica*. Limusa.  Loftus, E. F., & Palmer, J. C. (1974). Reconstruction of automobile destruction: An example of the interaction between language and memory. *Journal of Verbal Learning and Verbal Behavior, 13*(5), 585–589. https://doi.org/10.1016/S0022-5371(74)80011-3  Roediger, H. L., III, & Karpicke, J. D. (2006). Test-enhanced learning: Taking memory tests improves long-term retention. *Psychological Science, 17*(3), 249–255. https://doi.org/10.1111/j.1467-9280.2006.01693.x  Salazar, I., Vargas, C., Quiroga, A., & Rosasmanta, M. (s. f.). *Pensamiento lógico*. Programa de Admisión Pre-Facultativa, Carrera de Psicología, Universidad Mayor de San Andrés.  Stothart, C., Mitchum, A., & Yehnert, C. (2015). The attentional cost of receiving a cell phone notification. *Journal of Experimental Psychology: Human Perception and Performance, 41*(4), 893–897. https://doi.org/10.1037/xhp0000100  Stroop, J. R. (1935). Studies of interference in serial verbal reactions. *Journal of Experimental Psychology, 18*(6), 643–662. https://doi.org/10.1037/h0054651  Weston, A. (2006). *Las claves de la argumentación*. Ariel.</span>
               </div>
             </div>
             
@@ -3712,7 +3712,8 @@
 <div id="kb-hint">← → para navegar</div>
 
 <!-- ══════════ JS ══════════ -->
-<script ── STATE ── </em>/
+<script>
+  /* ── STATE ── */
   const slides     = document.querySelectorAll('.slide');
   const totalSlides = slides.length;
   let current = 0;
@@ -3924,7 +3925,6 @@
     }
   }
 
->>
-  /<em</script>
+</script>
 </body>
 </html>
