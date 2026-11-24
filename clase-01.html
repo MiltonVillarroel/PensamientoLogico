@@ -8,12 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ===================================================
-       VARIABLES DE TEMA (SINCRONIZADAS CON INDEX - MODO CLARO POR DEFECTO)
-    =================================================== */
-    :root {
-      /<em> Fondo y superficies </em>/
+  <style Fondo y superficies </em>/
       --bg-base:        #f8fafc;
       --bg-surface:     #ffffff;
       --bg-card:        #ffffff;
@@ -818,7 +813,12 @@
       .ex-container { grid-template-columns: 1fr; }
     }
 
-  </style>
+  >>
+    /* ===================================================
+       VARIABLES DE TEMA (SINCRONIZADAS CON INDEX - MODO CLARO POR DEFECTO)
+    =================================================== */
+    :root {
+      /<em</style>
 </head>
 <body>
 
@@ -3712,13 +3712,12 @@
 <div id="kb-hint">← → para navegar</div>
 
 <!-- ══════════ JS ══════════ -->
-<script>
-  /<em> ── STATE ── </em>/
+<script ── STATE ── </em>/
   const slides     = document.querySelectorAll('.slide');
   const totalSlides = slides.length;
   let current = 0;
 
-  /<em> ── NAVIGATION ── </em>/
+  /* ── NAVIGATION ── */
   function goTo(index) {
     if (index < 0 || index >= totalSlides) return;
     slides[current].classList.remove('active');
@@ -3729,7 +3728,7 @@
   function nextSlide() { goTo(current + 1); }
   function prevSlide() { goTo(current - 1); }
 
-  /<em> ── UI UPDATE ── </em>/
+  /* ── UI UPDATE ── */
   function updateUI() {
     const n = current + 1;
     document.getElementById('counter').textContent    = `${n} / ${totalSlides}`;
@@ -3747,7 +3746,7 @@
     document.getElementById('section-label').textContent = sec;
   }
 
-  /<em> ── KEYBOARD ── </em>/
+  /* ── KEYBOARD ── */
   document.addEventListener('keydown', e => {
     switch (e.key) {
       case 'ArrowRight': case 'ArrowDown': case ' ':
@@ -3759,7 +3758,7 @@
     }
   });
 
-  /<em> ── THEME TOGGLE ── </em>/
+  /* ── THEME TOGGLE ── */
   const html   = document.documentElement;
   const tBtn   = document.getElementById('theme-toggle');
   const saved  = localStorage.getItem('plp-theme') || 'light';
@@ -3773,7 +3772,7 @@
     localStorage.setItem('plp-theme', next);
   });
 
-  /<em> ── FULLSCREEN ── </em>/
+  /* ── FULLSCREEN ── */
   function toggleFS() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -3784,7 +3783,7 @@
     }
   }
 
-  /<em> ── INTERACTIVE SLIDE 4: click cards ── </em>/
+  /* ── INTERACTIVE SLIDE 4: click cards ── */
   function toggleCC(id, badgeClass) {
     const el = document.getElementById(id);
     el.classList.toggle('shown');
@@ -3793,16 +3792,16 @@
     }
   }
 
-  /<em> ── INTERACTIVE SLIDE 14: counterexample reveal ── </em>/
+  /* ── INTERACTIVE SLIDE 14: counterexample reveal ── */
   function revealCounter() {
     document.getElementById('reveal-btn').style.display   = 'none';
     document.getElementById('counter-box').style.display = 'block';
   }
 
-  /<em> ── INIT ── </em>/
+  /* ── INIT ── */
   updateUI();
 
-  /<em> ── INTERACTIVE TETRATLÓN HIGHLIGHTS ── </em>/
+  /* ── INTERACTIVE TETRATLÓN HIGHLIGHTS ── */
   function toggleTetraMark(prefix) {
     const p = document.getElementById(prefix + '-p');
     const c = document.getElementById(prefix + '-c');
@@ -3827,7 +3826,7 @@
     }
   }
 
-  /<em> ── INTERACTIVE EXERCISES TABS & SOLUTIONS ── </em>/
+  /* ── INTERACTIVE EXERCISES TABS & SOLUTIONS ── */
   function switchExTab(exNum, letter) {
     const btns = document.querySelectorAll(`[id^="tab-btn-e${exNum}-"]`);
     const panes = document.querySelectorAll(`[id^="pane-e${exNum}-"]`);
@@ -3864,7 +3863,7 @@
   }
 
 
-  /<em> ── INTERACTIVE TETRATLÓN HIGHLIGHTS ── </em>/
+  /* ── INTERACTIVE TETRATLÓN HIGHLIGHTS ── */
   function toggleTetraMark(prefix) {
     const p = document.getElementById(prefix + '-p');
     const c = document.getElementById(prefix + '-c');
@@ -3889,7 +3888,7 @@
     }
   }
 
-  /<em> ── INTERACTIVE EXERCISES TABS & SOLUTIONS ── </em>/
+  /* ── INTERACTIVE EXERCISES TABS & SOLUTIONS ── */
   function switchExTab(exNum, letter) {
     const btns = document.querySelectorAll(`[id^="tab-btn-e${exNum}-"]`);
     const panes = document.querySelectorAll(`[id^="pane-e${exNum}-"]`);
@@ -3925,6 +3924,7 @@
     }
   }
 
-</script>
+>>
+  /<em</script>
 </body>
 </html>
