@@ -171,7 +171,16 @@ Permite resaltar en vivo la estructura del argumento con colores canónicos:
 Para evitar sobrecargar visualmente la pantalla con 4 preguntas a la vez, cada diapositiva de ejercicio divide el espacio en dos columnas:
 1. **Columna Izquierda:** Caso de estudio experimental + Recuadro del Procedimiento Escrito orientador.
 2. **Columna Derecha:** Selector de pestañas `[ Inciso a) ]`, `[ Inciso b) ]`, `[ Inciso c) ]`, `[ Inciso d) ]`.
-3. **Botón «Mostrar solución razonada»:** Resalta la opción correcta en la lista (`.revealed-correct`) y despliega la justificación formal extraída del solucionario docente.
+3. **Botón «Mostrar solución razonada»:** Resalta la opción correcta en la lista (`.revealed-correct`) y despliega la justificación formal extraída del solucionario docente. Cuando el inciso involucra tablas de verdad, se muestran únicamente las columnas pertinentes al inciso (sin adelantar respuestas de incisos posteriores) y se resalta visualmente la fila decisiva.
+
+### 4.5. Criterios de Redacción para Preguntas y Ejercicios
+
+Para garantizar que los ejercicios complementarios sean comprensibles al primer vistazo (tanto en proyección en aula como en lectura autónoma), toda pregunta debe cumplir con estos criterios:
+
+* **Claridad y cero ambigüedad:** Redactar preguntas directas y autocontenidas. Evitar términos vagos (*«¿qué anotación...?»*, *«¿qué parte...?»*, *«¿qué evaluación...?»*) o referencias ciegas a otro texto/inciso (*«el primer enunciado»*, *«las frases de a) y b)»*) sin explicitar a qué se refieren.
+* **Sin jerga críptica sin contexto:** Cuando se pidan resultados de tablas de verdad, explicitar qué representan los casos (p. ej., los cuatro casos `1) p=V, q=V; 2) p=V, q=F; 3) p=F, q=V; 4) p=F, q=F`) en lugar de depender de sobreentendidos técnicos como *«columna final»* o *«asignaciones»*.
+* **Sin adelantar respuestas (*spoilers*):** Al explicitar una frase o tabla en un inciso, no revelar la fórmula o columna que se evalúa en otro inciso.
+* **Preservación del Tetratlón:** Los fragmentos y tareas del **Tetratlón** del libro base (*Pensamiento Lógico-5*) **no se modifican**. Toda mejora de claridad aplica únicamente a los ejercicios complementarios y debe mantenerse sincronizada entre el Markdown/PDF de `Avance/` y el archivo `clase-NN.html` correspondiente.
 
 ---
 
@@ -209,7 +218,7 @@ Al comenzar la maquetación de una nueva clase (ej. `clase-02.html`):
 3. **Desarrollo del Bloque de Taller (Minutos 102 a 180):**
    * Diapositiva de apertura del taller con el cronograma de tiempos y distribución de fragmentos.
    * **Diapositivas de Tetratlón:** Implementar el diseño de dos paneles con `toggleTetraMark` para destacar premisas, conclusión e indicador, seguido de los incisos normativos y la precisión de Copi & Cohen.
-   * **Diapositivas de Ejercicios del Cuadernillo:** Usar la plantilla de dos paneles (caso y procedimiento a la izquierda; selector de pestañas `switchExTab` e incisos con `toggleExSol` a la derecha).
+   * **Diapositivas de Ejercicios del Cuadernillo:** Usar la plantilla de dos paneles (caso y procedimiento a la izquierda; selector de pestañas `switchExTab` e incisos con `toggleExSol` a la derecha). Revisar que cada pregunta sea clara, directa y libre de ambigüedades según la sección 4.5, y convertir todo formato Markdown (`**negrita**`, enlaces) a HTML válido.
 4. **Diapositiva de Cierre:**
    * Diapositiva final de síntesis con los 4 o 5 aprendizajes observables de la sesión.
 5. **Actualización de `index.html`:**
