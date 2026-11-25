@@ -1,0 +1,2975 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clase 2 — Pensamiento Lógico Preuniversitario</title>
+  <meta name="description" content="Clase 2: Demostración, refutación y tablas de verdad. Curso preuniversitario de Pensamiento Lógico, Carrera de Psicología, UMSA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===================================================
+       VARIABLES DE TEMA (SINCRONIZADAS - MODO CLARO POR DEFECTO)
+    =================================================== */
+    :root {
+      --bg-base:        #f8fafc;
+      --bg-surface:     #ffffff;
+      --bg-card:        #ffffff;
+      --bg-hover:       #f1f5f9;
+      --bg-subtle:      #f1f5f9;
+      --bg-primary:     #f8fafc;
+      --bg-secondary:   #f8fafc;
+
+      --text-main:      #0f172a;
+      --text-primary:   #0f172a;
+      --text-secondary: #334155;
+      --text-muted:     #64748b;
+      --text-subtle:    #64748b;
+
+      --brand-primary:  #1e3a8a;
+      --brand-accent:   #2563eb;
+      --brand-light:    #dbeafe;
+      --accent:         #1e3a8a;
+      --accent-lt:      #2563eb;
+
+      --amber:          #b45309;
+      --amber-bg:       #fef3c7;
+      --green:          #047857;
+      --green-bg:       #d1fae5;
+      --purple:         #6d28d9;
+      --purple-bg:      #ede9fe;
+      --pink:           #be185d;
+      --red:            #dc2626;
+
+      --border:         #e2e8f0;
+      --border-accent:  rgba(37, 99, 235, 0.35);
+      --shadow-sm:      0 2px 6px rgba(0, 0, 0, 0.05);
+      --shadow-md:      0 12px 28px rgba(15, 23, 42, 0.09);
+
+      --grad-accent:    linear-gradient(135deg, #1e3a8a, #2563eb);
+      --grad-bg:        linear-gradient(165deg, #eff6ff 0%, #f8fafc 50%, #f1f5f9 100%);
+
+      --font-serif:     'EB Garamond', Georgia, serif;
+      --font-display:   'Cinzel', serif;
+      --font-sans:      'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono:      'Roboto Mono', monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg-base:        #090d16;
+      --bg-surface:     #0f172a;
+      --bg-card:        #131d31;
+      --bg-hover:       #1b2742;
+      --bg-subtle:      #1a2438;
+      --bg-primary:     #090d16;
+      --bg-secondary:   #0f172a;
+
+      --text-main:      #f8fafc;
+      --text-primary:   #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted:     #94a3b8;
+      --text-subtle:    #64748b;
+
+      --brand-primary:  #3b82f6;
+      --brand-accent:   #60a5fa;
+      --brand-light:    rgba(59, 130, 246, 0.15);
+      --accent:         #3b82f6;
+      --accent-lt:      #60a5fa;
+
+      --amber:          #fbbf24;
+      --amber-bg:       rgba(251, 191, 36, 0.15);
+      --green:          #34d399;
+      --green-bg:       rgba(52, 211, 153, 0.15);
+      --purple:         #a78bfa;
+      --purple-bg:      rgba(167, 139, 250, 0.15);
+      --pink:           #f472b6;
+      --red:            #f87171;
+
+      --border:         rgba(255, 255, 255, 0.08);
+      --border-accent:  rgba(96, 165, 250, 0.35);
+      --shadow-sm:      0 2px 10px rgba(0, 0, 0, 0.35);
+      --shadow-md:      0 14px 32px rgba(0, 0, 0, 0.5);
+
+      --grad-accent:    linear-gradient(135deg, #60a5fa, #a78bfa);
+      --grad-bg:        linear-gradient(165deg, #090d16 0%, #0f172a 60%, #131d31 100%);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:100%; height:100%; overflow:hidden; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      transition: background .4s, color .4s;
+    }
+
+    a { color: var(--brand-accent); }
+
+    /* ===================================================
+       PROGRESS & TOP METADATA
+    =================================================== */
+    #top-bar {
+      position:fixed; top:0; left:0; right:0;
+      height:4px; background:var(--border); z-index:1000;
+    }
+    #progress-bar {
+      height:100%; background:var(--grad-accent);
+      transition: width .5s ease;
+    }
+    #slide-label {
+      position:fixed; top:16px; left:22px; z-index:999;
+      font-family:var(--font-mono); font-size:12px; font-weight:600;
+      color:var(--text-muted); letter-spacing:.08em;
+    }
+    #section-label {
+      position:fixed; top:16px; left:50%; transform:translateX(-50%);
+      z-index:999; font-family:var(--font-mono); font-size:11px;
+      text-transform:uppercase; letter-spacing:.14em; color:var(--text-muted);
+      white-space:nowrap;
+    }
+    #theme-toggle {
+      position:fixed; top:12px; right:18px; z-index:1000;
+      width:42px; height:42px; border-radius:50%; border:1px solid var(--border);
+      background:var(--bg-card); color:var(--text-primary);
+      font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      box-shadow:var(--shadow-sm); transition:transform .3s, box-shadow .3s;
+    }
+    #theme-toggle:hover { transform:scale(1.12) rotate(18deg); box-shadow:var(--shadow-md); }
+
+    /* ===================================================
+       PRESENTATION & SLIDES
+    =================================================== */
+    #presentation { position:relative; width:100vw; height:100vh; }
+
+    .slide {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:68px 72px 86px;
+      opacity:0; pointer-events:none;
+      transition: opacity .4s ease;
+      background: var(--bg-primary);
+    }
+    .slide.active  { opacity:1; pointer-events:all; }
+    .slide-scroll  { overflow-y:auto; justify-content:flex-start; padding-top:68px; padding-bottom:92px; }
+    .slide-cover   { background: var(--grad-bg); }
+    .slide-break   { background: var(--grad-bg); }
+
+    /* ===================================================
+       TYPOGRAPHY (LETRAS GRANDES PARA PROYECCIÓN EN AULA)
+    =================================================== */
+    .slide-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.3rem, 4.4vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: .35em;
+    }
+    .slide-subtitle {
+      font-family: var(--font-sans);
+      font-size: clamp(1.08rem, 1.6vw, 1.35rem);
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1.4rem;
+      line-height: 1.5;
+      max-width: 960px;
+    }
+
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.6rem, 7vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+    .cover-sub {
+      font-family: var(--font-serif);
+      font-size: clamp(1.45rem, 2.5vw, 2.25rem);
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      margin-top: 0.5rem;
+    }
+    .cover-meta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+
+    /* ===================================================
+       BADGES
+    =================================================== */
+    .sbadge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 9999px; padding: 5px 16px; margin-bottom: 14px;
+      font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted);
+      box-shadow: var(--shadow-sm);
+    }
+    .sbadge .dot { width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+
+    .badge {
+      display:inline-block; padding:4px 12px; border-radius:100px;
+      font-size:0.82rem; font-weight:600; font-family:var(--font-mono);
+    }
+    .b-blue   { background:rgba(37,99,235,.12); color:var(--accent); }
+    .b-amber  { background:rgba(180,83,9,.12);  color:var(--amber); }
+    .b-green  { background:rgba(4,120,87,.12);  color:var(--green); }
+    .b-purple { background:rgba(109,40,217,.12);color:var(--purple); }
+    .b-pink   { background:rgba(190,24,93,.12); color:var(--pink); }
+
+    /* ===================================================
+       CARDS & GRIDS
+    =================================================== */
+    .card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:16px; padding:22px;
+      box-shadow:var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+    .card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); border-color:var(--border-accent); }
+    .card-label {
+      font-family:var(--font-mono); font-size:0.78rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.1em; color:var(--accent); margin-bottom:7px;
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 1.85vw, 1.55rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .card-body { font-size:1.05rem; line-height:1.6; color:var(--text-secondary); }
+
+    .grid { display:grid; gap:16px; width:100%; }
+    .g2 { grid-template-columns:1fr 1fr; }
+    .g3 { grid-template-columns:1fr 1fr 1fr; }
+    .g4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+
+    /* ===================================================
+       TABLES & TRUTH TABLES
+    =================================================== */
+    .tbl {
+      width:100%; border-collapse:collapse;
+      font-size:clamp(.95rem, 1.25vw, 1.12rem);
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .tbl th {
+      background:var(--bg-subtle); border:1px solid var(--border);
+      padding:11px 16px; text-align:left;
+      font-family:var(--font-serif); font-weight:700; font-size:clamp(.92rem,1.15vw,1.08rem);
+      color:var(--accent); letter-spacing:.02em;
+    }
+    .tbl td {
+      border:1px solid var(--border); padding:11px 16px;
+      vertical-align:middle; line-height:1.5; color: var(--text-primary);
+    }
+    .tbl tr:hover td { background:var(--bg-hover); }
+
+    /* Tablas de Verdad */
+    .ttbl {
+      width:100%; border-collapse:collapse;
+      font-family:var(--font-mono);
+      font-size:clamp(.95rem, 1.25vw, 1.15rem);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+    .ttbl th {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .ttbl td {
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .ttbl-sm { font-size: 0.84rem; margin-top: 0.65rem; }
+    .ttbl-sm th, .ttbl-sm td { padding: 5px 8px; }
+
+    .val-v { color: var(--green); font-weight: 700; }
+    .val-f { color: var(--pink); font-weight: 700; }
+    .row-alert { background: rgba(190, 24, 93, 0.10) !important; }
+    .row-alert td { border-color: rgba(190, 24, 93, 0.35); }
+    .row-valid { background: rgba(4, 120, 87, 0.09) !important; }
+    .row-hidden-mark { transition: background 0.3s ease; }
+
+    /* ===================================================
+       ARGUMENT BOX & BLOCKQUOTE & LISTS
+    =================================================== */
+    .arg-box {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:14px; padding:18px 22px; width:100%;
+      box-shadow: var(--shadow-sm);
+    }
+    .arg-row {
+      display:flex; align-items:flex-start; gap:14px;
+      padding:9px 0; border-bottom:1px solid var(--border);
+      font-size:clamp(.98rem, 1.35vw, 1.15rem); line-height:1.5;
+    }
+    .arg-row:last-child {
+      border-bottom:none; border-top:2px solid var(--border-accent);
+      margin-top:4px; padding-top:12px;
+    }
+    .arg-lbl {
+      font-family:var(--font-mono); font-weight:700;
+      font-size:.9em; min-width:44px; flex-shrink:0;
+    }
+
+    .bq {
+      border-left:4px solid var(--accent); padding:15px 22px;
+      background:var(--bg-card); border-radius:0 12px 12px 0;
+      font-size:clamp(.98rem, 1.35vw, 1.18rem); line-height:1.62;
+      color:var(--text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nlist { list-style:none; width:100%; }
+    .nlist li {
+      display:flex; align-items:flex-start; gap:16px;
+      padding:12px 0; border-bottom:1px solid var(--border);
+      font-size:clamp(1rem, 1.4vw, 1.22rem); line-height:1.55;
+    }
+    .nlist li:last-child { border-bottom:none; }
+    .nlist .n {
+      font-family:var(--font-mono); font-weight:700; font-size:1.05em;
+      color:var(--accent); min-width:30px; flex-shrink:0;
+    }
+
+    /* ===================================================
+       LOGIC SYMBOLS
+    =================================================== */
+    .logic {
+      font-family:var(--font-mono); font-weight:700;
+      font-size:1.04em; color:var(--accent);
+    }
+    .logic-block {
+      font-family:var(--font-mono);
+      background:var(--bg-subtle); border:1.5px solid var(--border-accent);
+      border-radius:12px; padding:12px 22px;
+      font-size:clamp(1.1rem, 1.7vw, 1.45rem); color:var(--accent);
+      display:inline-block; margin:8px 0; font-weight:700;
+    }
+
+    /* ===================================================
+       INTERACTIVE CLICK CARDS
+    =================================================== */
+    .click-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; width:100%; max-width:980px; }
+    .cc {
+      background:var(--bg-card); border:1.5px solid var(--border);
+      border-radius:16px; padding:24px 20px; cursor:pointer; text-align:center;
+      transition:all .25s; user-select:none; box-shadow:var(--shadow-sm);
+    }
+    .cc:hover { border-color:var(--border-accent); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .cc .cc-q {
+      font-family:var(--font-serif); font-weight:700;
+      font-size:clamp(1.12rem, 1.6vw, 1.38rem); margin-bottom:10px; color:var(--text-primary);
+    }
+    .cc .cc-a {
+      display:none; font-size:clamp(.95rem, 1.2vw, 1.06rem);
+      color:var(--text-secondary); line-height:1.55;
+      border-top:1px solid var(--border); padding-top:12px; margin-top:6px;
+    }
+    .cc.shown .cc-a  { display:block; animation: fadeIn .25s ease; }
+    .cc .cc-hint { font-size:.8rem; color:var(--text-muted); margin-top:8px; font-family:var(--font-mono); }
+    .cc.shown .cc-hint { display:none; }
+
+    /* ===================================================
+       TALLER & SUMMARY GRIDS
+    =================================================== */
+    .taller-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%; max-width:980px; }
+    .tc-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:14px; padding:22px; box-shadow:var(--shadow-sm);
+    }
+    .tc-time { font-family:var(--font-mono); font-size:.86rem; color:var(--amber); font-weight:700; margin-bottom:7px; }
+    .tc-title { font-family:var(--font-serif); font-weight:700; font-size:1.3rem; margin-bottom:6px; color:var(--text-primary); }
+    .tc-body { font-size:1.02rem; line-height:1.58; color:var(--text-secondary); }
+
+    .sum-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; width:100%; max-width:1100px; }
+    .sc {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:14px; padding:20px 14px; text-align:center;
+      transition:transform .2s, border-color .2s; box-shadow:var(--shadow-sm);
+    }
+    .sc:hover { transform:translateY(-4px); border-color:var(--border-accent); }
+    .sc-icon  { font-size:2rem; margin-bottom:9px; }
+    .sc-title {
+      font-family:var(--font-serif); font-weight:700;
+      font-size:clamp(1.05rem, 1.3vw, 1.22rem); color:var(--accent); margin-bottom:6px;
+    }
+    .sc-body { font-size:0.98rem; line-height:1.55; color:var(--text-secondary); }
+
+    /* ===================================================
+       UTILS
+    =================================================== */
+    .mt1 { margin-top:8px; }
+    .mt2 { margin-top:16px; }
+    .mt3 { margin-top:24px; }
+    .mb1 { margin-bottom:8px; }
+    .w100 { width:100%; }
+    .mx-auto { margin-left:auto; margin-right:auto; }
+    .tc { text-align:center; }
+    .hi   { color:var(--accent);  font-weight:600; }
+    .hi-a { color:var(--amber);   font-weight:600; }
+    .hi-g { color:var(--green);   font-weight:600; }
+    .hi-p { color:var(--purple);  font-weight:600; }
+    .hi-k { color:var(--pink);    font-weight:600; }
+    .two-cols { display:grid; grid-template-columns:1fr 1fr; gap:22px; width:100%; }
+    .one-col  { display:grid; grid-template-columns:1fr; gap:14px; width:100%; }
+
+    /* ===================================================
+       CONTROLS
+    =================================================== */
+    #controls {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 9999px; padding: 6px 14px;
+      box-shadow: var(--shadow-md); z-index: 999;
+      backdrop-filter: blur(8px);
+    }
+    .cbtn {
+      background: var(--bg-subtle); border: 1px solid var(--border);
+      color: var(--text-primary); width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 600; transition: all 0.2s ease;
+    }
+    .cbtn:hover { background: var(--brand-light); color: var(--brand-primary); border-color: var(--brand-accent); transform: scale(1.1); }
+    .cbtn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+    #counter {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+      color: var(--text-muted); min-width: 64px; text-align: center;
+    }
+    #kb-hint {
+      position:fixed; bottom:28px; right:22px;
+      font-size:11px; color:var(--text-muted);
+      font-family:var(--font-mono); letter-spacing:.06em;
+    }
+
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================================================
+       ESTILOS FORMALES Y ACADÉMICOS PARA EJERCICIOS Y TETRATLÓN
+    =================================================== */
+    .ex-container {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 1.4rem;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0.65rem auto 0;
+      text-align: left;
+    }
+    .ex-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .ex-source-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border);
+      font-size: 0.80rem; font-family: var(--font-mono);
+      color: var(--text-muted); letter-spacing: 0.05em; font-weight: 600;
+    }
+    .ex-case-body {
+      font-size: 1.05rem; line-height: 1.68;
+      color: var(--text-primary); font-family: var(--font-sans);
+    }
+    .ex-case-body blockquote {
+      margin: 0.65rem 0; padding: 0.7rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--bg-subtle); border-radius: 0 8px 8px 0;
+      font-family: var(--font-mono); font-size: 0.94rem;
+    }
+    .ex-proc-box {
+      background: var(--bg-subtle); border-left: 3px solid var(--brand-accent);
+      border-radius: 0 8px 8px 0; padding: 0.9rem 1.1rem;
+      font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.55; margin-top: auto;
+    }
+    .ex-proc-title {
+      font-weight: 700; color: var(--text-primary);
+      margin-bottom: 0.4rem; font-size: 0.82rem;
+      text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono);
+    }
+    .ex-chat-box {
+      background: rgba(109, 40, 217, 0.06); border: 1px solid rgba(109, 40, 217, 0.25);
+      border-left: 3px solid var(--purple); border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1.1rem; font-size: 0.94rem; color: var(--text-primary); line-height: 1.55;
+    }
+
+    .ex-tabs-bar {
+      display: flex; gap: 0.4rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 0.55rem;
+    }
+    .ex-tab-btn {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 0.45rem 0.9rem; border-radius: 6px;
+      font-family: var(--font-mono); font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .ex-tab-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+    .ex-tab-btn.active { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+
+    .ex-inciso-pane {
+      display: none; flex-direction: column; gap: 0.8rem; animation: fadeIn .25s ease;
+    }
+    .ex-inciso-pane.active { display: flex; }
+
+    .ex-q-statement {
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--text-primary); line-height: 1.5; padding: 0.2rem 0;
+    }
+    .ex-opt-list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .ex-opt-item {
+      display: flex; align-items: baseline; gap: 0.65rem;
+      padding: 0.68rem 0.95rem; border-radius: 8px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      font-size: 1.02rem; line-height: 1.48; color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+    .ex-opt-item.revealed-correct {
+      background: rgba(52, 211, 153, 0.14);
+      border-color: var(--green);
+      color: var(--text-primary); font-weight: 500;
+    }
+    .ex-opt-letter {
+      font-family: var(--font-mono); font-weight: 700;
+      color: var(--brand-accent); min-width: 1.45rem; font-size: 1.06rem;
+    }
+
+    .ex-sol-btn {
+      align-self: flex-start; margin-top: 0.4rem;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      color: var(--brand-accent); padding: 0.48rem 1.05rem; border-radius: 6px;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      transition: all 0.2s ease; box-shadow: var(--shadow-sm);
+    }
+    .ex-sol-btn:hover { background: var(--bg-hover); border-color: var(--border-accent); }
+
+    .ex-sol-card {
+      display: none;
+      background: rgba(4, 120, 87, 0.08);
+      border: 1px solid rgba(4, 120, 87, 0.25);
+      border-left: 4px solid var(--green);
+      border-radius: 6px; padding: 1rem 1.15rem;
+      font-size: 0.96rem; color: var(--text-primary); line-height: 1.58;
+    }
+    .ex-sol-card.shown { display: block; animation: fadeIn .3s ease; }
+
+    /* TETRATLÓN HIGHLIGHTS */
+    .t-premise, .t-conclusion, .t-indicator {
+      transition: all 0.3s ease; border-radius: 3px; padding: 1px 3px;
+    }
+    .t-premise.highlighted {
+      background: rgba(37, 99, 235, 0.22);
+      border-bottom: 2px solid var(--accent); color: var(--text-primary);
+    }
+    .t-conclusion.highlighted {
+      background: rgba(220, 38, 38, 0.20);
+      border-bottom: 2px solid var(--red); color: var(--text-primary);
+    }
+    .t-indicator.highlighted {
+      background: rgba(245, 158, 11, 0.32);
+      border-bottom: 2px solid var(--amber); font-weight: 700; color: var(--text-primary);
+    }
+
+    @media (max-width: 900px) {
+      .slide { padding: 62px 20px 84px; }
+      .ex-container, .two-cols, .taller-grid { grid-template-columns: 1fr; }
+      .g3, .g4, .sum-grid { grid-template-columns: 1fr 1fr; }
+      .click-cards { grid-template-columns: 1fr; }
+      #kb-hint { display: none; }
+    }
+    @media (max-width: 560px) {
+      .g2, .g3, .g4, .sum-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ TOP BAR ══════════ -->
+<div id="top-bar"><div id="progress-bar"></div></div>
+<div id="slide-label">01 / 28</div>
+<div id="section-label"></div>
+<button id="theme-toggle" title="Cambiar tema">🌙</button>
+
+<!-- ══════════ PRESENTATION ══════════ -->
+<div id="presentation">
+
+  <!-- ════════════════════════════════
+       SLIDE 1 — PORTADA
+  ════════════════════════════════ -->
+  <div class="slide slide-cover active" data-sec="">
+    <div style="text-align:center; max-width:880px;">
+      <div style="font-family:var(--font-mono); font-size:12px; letter-spacing:.18em;
+                  text-transform:uppercase; color:var(--text-muted); margin-bottom:22px;">
+        Pensamiento Lógico · Carrera de Psicología · UMSA
+      </div>
+      <div class="cover-title">Clase 2</div>
+      <div class="cover-sub">Demostración, refutación<br>y tablas de verdad</div>
+      <div style="width:74px; height:3px; background:var(--grad-accent); border-radius:2px; margin:24px auto;"></div>
+      <div class="cover-meta">
+        <span class="badge b-blue">📚 Cap. II · Lógica Proposicional</span>
+        <span class="badge b-amber">⏱ 180 minutos</span>
+        <span class="badge b-purple">🎓 Nivel Preuniversitario</span>
+      </div>
+      <div style="margin-top:34px; font-size:.95rem; color:var(--text-muted); line-height:1.7;">
+        Fuentes: <em>Pensamiento Lógico-5</em> (pp. 12–15) · Copi &amp; Cohen (2007, Cap. 8) · Weston (2006)
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 2 — PROPÓSITO
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="">
+    <div class="sbadge"><span class="dot"></span>Propósito de la clase</div>
+    <div class="slide-title">¿Qué vas a lograr hoy?</div>
+    <div class="slide-subtitle">Al terminar esta sesión de 180 minutos podrás:</div>
+    <ul class="nlist mx-auto" style="max-width:840px;">
+      <li>
+        <span class="n">01</span>
+        <span>Distinguir una <span class="hi">tesis</span> de sus <span class="hi-g">razones</span>,
+        de una objeción a su defensa y de la <span class="hi-k">contratesis</span> propuesta al discutirla.</span>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <span>Diferenciar la intención de demostrar o refutar de la calidad lógica del argumento en el
+        <strong>capítulo II</strong> del texto base.</span>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <span>Construir <span class="hi-a">tablas de verdad</span> de dos variables (<span class="logic">¬ ∧ ∨ → ↔</span>)
+        e interpretar condiciones <strong>necesarias y suficientes</strong>.</span>
+      </li>
+      <li>
+        <span class="n">04</span>
+        <span>Clasificar fórmulas (tautología, contradicción, contingencia) y construir un
+        <span class="hi-p">contraejemplo formal</span> que refute una forma inválida.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 3 — RECUPERACIÓN CLASE 1 (0–10 min)
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="Bloque 1 · Recuperación (0–10 min)">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Activación · 0–10 min</div>
+    <div class="slide-title">Recuperamos la Clase 1</div>
+    <div class="slide-subtitle">Haz clic en cada tarjeta para activar los conceptos base antes de construir tablas</div>
+    <div class="click-cards">
+      <div class="cc" id="cc-r1" onclick="toggleCC('cc-r1')">
+        <div class="cc-q">1. Proposición y Diccionario</div>
+        <div class="cc-a">
+          <span class="badge b-blue">V o F</span>
+          <div style="margin-top:8px;">
+            Solo las <strong>proposiciones</strong> son V o F. Asignamos letras (<span class="logic">p, q</span>) y respetamos el alcance de los paréntesis en <span class="logic">¬(p ∧ q)</span>.
+          </div>
+        </div>
+        <div class="cc-hint">👆 Haz clic para recordar</div>
+      </div>
+      <div class="cc" id="cc-r2" onclick="toggleCC('cc-r2')">
+        <div class="cc-q">2. Dos formas con condicional</div>
+        <div class="cc-a">
+          <span class="badge b-amber">Comparación</span>
+          <div style="margin-top:8px;">
+            <span class="logic">p → q, p ∴ q</span> (Modus Ponens) es <strong>válida</strong>.<br>
+            <span class="logic">p → q, q ∴ p</span> es <strong>inválida</strong>. Hoy probaremos por qué con una tabla.
+          </div>
+        </div>
+        <div class="cc-hint">👆 Haz clic para recordar</div>
+      </div>
+      <div class="cc" id="cc-r3" onclick="toggleCC('cc-r3')">
+        <div class="cc-q">3. El caso decisivo de invalidez</div>
+        <div class="cc-a">
+          <span class="badge b-pink">Criterio clave</span>
+          <div style="margin-top:8px;">
+            Encontrar <strong>todas las premisas V y la conclusión F</strong> al mismo tiempo demuestra formalmente que la forma argumental falla.
+          </div>
+        </div>
+        <div class="cc-hint">👆 Haz clic para recordar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 4 — DEMOSTRACIÓN Y REFUTACIÓN (10–25 min)
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="Bloque 1 · Demostración y Refutación">
+    <div class="sbadge"><span class="dot"></span>Bloque 1 · 10–25 min · Libro pp. 12–13</div>
+    <div class="slide-title">Demostración y Refutación</div>
+    <div class="slide-subtitle">Dos propósitos opuestos en la discusión racional (Salazar et al., pp. 12–13)</div>
+    <div class="grid g3 mt1" style="max-width:1040px;">
+      <div class="card" style="border-top:4px solid var(--green);">
+        <div class="card-label" style="color:var(--green);">Demostrar (lat. demonstratus)</div>
+        <div class="card-title">Probar a favor de una tesis</div>
+        <div class="card-body">Consiste en ofrecer razones o argumentos a favor de una tesis que se desea defender por considerarla correcta o verdadera.</div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--pink);">
+        <div class="card-label" style="color:var(--pink);">Refutar (lat. refutare)</div>
+        <div class="card-title">Cuestionar una tesis</div>
+        <div class="card-body">Consiste en ofrecer contraargumentos o razones que cuestionan o atacan una tesis considerada errónea o falsa.</div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--accent);">
+        <div class="card-label">Contratesis</div>
+        <div class="card-title">La postura alternativa</div>
+        <div class="card-body">Es la afirmación que quien refuta propone frente a la tesis discutida, procurando respaldarla con sus razones.</div>
+      </div>
+    </div>
+    <div class="bq mt3 mx-auto" style="max-width:1040px; border-left-color:var(--amber);">
+      ⚠️ <strong>Intención ≠ Calidad lógica:</strong> Reconocer que alguien <em>intenta</em> demostrar o refutar no garantiza que sus razones sean verdaderas ni válidas. En el afán de ganar una polémica, la argumentación puede degenerar en falacias.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 5 — TESIS, CONTRATESIS Y ALCANCE DE LA OBJECIÓN
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 1 · Demostración y Refutación">
+    <div class="sbadge"><span class="dot"></span>Bloque 1 · 10–25 min · Material § 1 &amp; Weston</div>
+    <div class="slide-title">¿Refutar la tesis o cuestionar la defensa?</div>
+    <div class="slide-subtitle">No toda objeción prueba lo contrario; hay que precisar exactamente qué alcanza (Weston, Cap. VII)</div>
+    <div class="two-cols mt1" style="max-width:1060px; align-items:stretch;">
+      <div class="card" style="border-top:4px solid var(--pink);">
+        <div class="card-label" style="color:var(--pink);">Caso A · Refutar una tesis universal</div>
+        <div class="arg-box mt1" style="box-shadow:none;">
+          <div class="arg-row"><span class="arg-lbl hi-k">Tesis</span><span>«<strong>Toda</strong> persona que recibe ayuda de un chat aprende más que si estudia sin él».</span></div>
+          <div class="arg-row"><span class="arg-lbl hi">Razón</span><span>Un estudio comprobado muestra un caso donde la ayuda no mejoró el aprendizaje posterior.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-g">Contra</span><span><strong>Contratesis mínima:</strong> «No toda ayuda de un chat mejora el aprendizaje».</span></div>
+        </div>
+        <div class="card-body mt2" style="font-size:0.96rem;">
+          ✅ Un caso contrario pertinente y respaldado basta para cuestionar una afirmación universal.
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--amber);">
+        <div class="card-label" style="color:var(--amber);">Caso B · Objetar una razón débil</div>
+        <div class="arg-box mt1" style="box-shadow:none;">
+          <div class="arg-row"><span class="arg-lbl hi-k">Tesis</span><span>«Esta herramienta educativa mejora el rendimiento».</span></div>
+          <div class="arg-row"><span class="arg-lbl hi">Defensa</span><span>«Porque su página web se ve muy profesional».</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-a">Objeción</span><span>«La apariencia del sitio no garantiza eficacia pedagógica».</span></div>
+        </div>
+        <div class="card-body mt2" style="font-size:0.96rem;">
+          🔎 <strong>Alcance:</strong> Se dejó la defensa sin respaldo, pero <strong>no se probó que la herramienta sea inútil</strong>. Falta investigar evidencia independiente.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 6 — PROTOTIPO 1: NIETZSCHE
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 2 · Prototipos del Libro Base">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Prototipo 1 · 25–35 min · Libro p. 13</div>
+    <div class="slide-title">Prototipo de Refutación: Nietzsche</div>
+    <div class="slide-subtitle">Friedrich Nietzsche · <em>El caminante y su sombra</em>, aforismo 17</div>
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO DEL LIBRO BASE</span>
+          <span style="color:var(--accent);">p. 13</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.03rem;">
+          «Por otra parte, no es cierto lo que dice (Schopenhauer) de la generalidad del fenómeno a explicar (Schopenhauer pretende que toda mujer, si fuera sorprendida en el acto de la fecundación, se moriría de vergüenza, mientras que “exhibe su embarazo, sin el más mínimo pudor, y hasta con cierto orgullo”), <strong class="hi-a">ya que</strong> habla de “toda mujer”, siendo así que muchas —especialmente las jóvenes— sienten casi siempre en ese estado una dolorosa vergüenza, incluso delante de sus parientes más cercanos; y si las mujeres de edad madura —y las más maduras, sobre todo las del pueblo bajo— sienten efectivamente ese placer del que se habla cuando se encuentran en dicho estado, ello se debe a que así dan a entender que siguen inspirando deseos a los hombres.»
+        </div>
+      </div>
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>LECTURA ANALÍTICA</span>
+          <span>Refutación</span>
+        </div>
+        <div class="arg-box" style="box-shadow:none; padding:14px 16px;">
+          <div class="arg-row"><span class="arg-lbl hi-k">Quién</span><span>Friedrich Nietzsche ataca una tesis atribuida a Arthur Schopenhauer.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi">Tesis</span><span><strong>Tesis refutada:</strong> <em>Toda</em> mujer exhibe su embarazo sin pudor y hasta con orgullo.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-g">Razones</span><span>Muchas mujeres (sobre todo jóvenes) sienten dolorosa vergüenza; y en otros casos el supuesto orgullo responde a mostrar que aún inspiran deseo.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-a">Clave</span><span><strong>Intención refutatoria:</strong> oponerse a la generalidad («toda mujer») con contraejemplos y una explicación alternativa.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 7 — PROTOTIPO 2: FERRATER MORA
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 2 · Prototipos del Libro Base">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Prototipo 2 · 25–35 min · Libro p. 13</div>
+    <div class="slide-title">Prototipo de Demostración: Ferrater Mora</div>
+    <div class="slide-subtitle">José Ferrater Mora · <em>Diccionario de filosofía</em>, p. 506</div>
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO DEL LIBRO BASE</span>
+          <span style="color:var(--accent);">p. 13</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.05rem;">
+          «En realidad, casi todas las tendencias coinciden actualmente en la necesidad de constituir la psicología en ciencia independiente y autónoma y, por lo tanto, en la necesidad de atenerse a los hechos psíquicos, a diferencia de los procesos fisiológicos y de los objetos metafísicos. <strong class="hi-a">De ahí que</strong>, en general, la experimentación que representó anteriormente una dirección de la psicología opuesta a la absorción de lo psíquico en lo metafísico sea defendida hoy por todas las escuelas psicológicas.»
+        </div>
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Tres preguntas guía para leer el Tetratlón</div>
+          1. ¿Qué afirmación se quiere sostener o cuestionar?<br>
+          2. ¿Qué razones ofrece el autor y qué parte de la tesis alcanzan?<br>
+          3. ¿Qué podría concluirse si esas razones se aceptaran?
+        </div>
+      </div>
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>LECTURA ANALÍTICA</span>
+          <span>Demostración</span>
+        </div>
+        <div class="arg-box" style="box-shadow:none; padding:14px 16px;">
+          <div class="arg-row"><span class="arg-lbl hi-g">Propósito</span><span>Intención <strong>demostrativa</strong>: ofrece razones a favor de una tesis histórica/metodológica.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi">Tesis</span><span>Hoy todas las escuelas psicológicas defienden la experimentación (opuesta a absorber lo psíquico en la metafísica).</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-a">Razones</span><span>Coincidencia en hacer de la psicología una ciencia autónoma y atenerse a los hechos psíquicos antes que a los fisiológicos o metafísicos.</span></div>
+          <div class="arg-row"><span class="arg-lbl hi-p">Nexo</span><span><strong>«De ahí que»</strong> introduce la conclusión tras presentar las razones.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 8 — TABLAS DE VERDAD: CONECTORES BÁSICOS (35–50 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 3 · Tablas de Verdad">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Bloque 3 · 35–50 min · Copi &amp; Cohen § 8.2</div>
+    <div class="slide-title">Construir 4 filas y conectores básicos</div>
+    <div class="slide-subtitle">Con <span class="logic">n</span> variables hay <span class="logic">2ⁿ</span> combinaciones (2 variables → 4 filas en orden canónico <strong>VV, VF, FV, FF</strong>)</div>
+    <div class="two-cols mt1" style="max-width:1060px; align-items:start;">
+      <div>
+        <table class="ttbl">
+          <thead>
+            <tr>
+              <th>p</th><th>q</th><th>¬p</th><th>p ∧ q</th><th>p ∨ q</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+            <tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+            <tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+            <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="one-col">
+        <div class="card" style="padding:16px 20px; border-left:4px solid var(--pink);">
+          <div class="card-title" style="font-size:1.2rem;">Negación (<span class="logic">¬p</span>)</div>
+          <div class="card-body">Invierte el valor de verdad de <span class="logic">p</span>. Si <span class="logic">p</span> es V, <span class="logic">¬p</span> es F (y viceversa).</div>
+        </div>
+        <div class="card" style="padding:16px 20px; border-left:4px solid var(--accent);">
+          <div class="card-title" style="font-size:1.2rem;">Conjunción (<span class="logic">p ∧ q</span>)</div>
+          <div class="card-body">Es <strong class="val-v">V</strong> únicamente cuando <strong>ambas</strong> proposiciones son verdaderas (fila VV).</div>
+        </div>
+        <div class="card" style="padding:16px 20px; border-left:4px solid var(--amber);">
+          <div class="card-title" style="font-size:1.2rem;">Disyunción inclusiva (<span class="logic">p ∨ q</span>)</div>
+          <div class="card-body">Es <strong class="val-v">V</strong> cuando <strong>al menos una</strong> es V (incluyendo VV). Solo es <strong class="val-f">F</strong> en FF.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 9 — CONDICIONAL MATERIAL (50–65 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 3 · El Condicional Material">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Bloque 3 · 50–65 min · Copi &amp; Cohen § 8.3</div>
+    <div class="slide-title">El Condicional Material (<span class="logic">p → q</span>)</div>
+    <div class="slide-subtitle">Antecedente (<span class="logic">p</span>) → Consecuente (<span class="logic">q</span>) · La dirección importa: <span class="logic">p → q</span> no equivale a <span class="logic">q → p</span></div>
+    <div class="two-cols mt1" style="max-width:1060px; align-items:start;">
+      <div>
+        <table class="ttbl">
+          <thead>
+            <tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+            <tr class="row-alert"><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+            <tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+          </tbody>
+        </table>
+        <div class="bq mt2" style="font-size:0.95rem; border-left-color:var(--pink);">
+          💥 <strong>Única fila falsa de <span class="logic">p → q</span>:</strong> Antecedente <span class="val-v">V</span> y consecuente <span class="val-f">F</span> (fila <strong>VF</strong>).
+        </div>
+      </div>
+      <div class="one-col">
+        <div class="card" style="border-top:4px solid var(--accent);">
+          <div class="card-label">Ejemplo del aula virtual</div>
+          <div class="card-body">
+            «Ana accede a la actividad (<span class="logic">p</span>) <strong>solo si</strong> tiene permiso (<span class="logic">q</span>)» → <span class="logic">p → q</span>.<br><br>
+            • <strong>Fila VF:</strong> Ana accede (<span class="val-v">V</span>) sin permiso (<span class="val-f">F</span>) → <strong>incumple la regla</strong> (<span class="val-f">F</span>).<br>
+            • <strong>Fila FV:</strong> Ana tiene permiso (<span class="val-v">V</span>) pero no abre la actividad (<span class="val-f">F</span>) → la regla <strong>no</strong> se incumple (<span class="val-v">V</span>).
+          </div>
+        </div>
+        <div class="bq" style="font-size:0.94rem; border-left-color:var(--amber);">
+          📌 <strong>Nota empírica:</strong> La tabla calcula el valor lógico en cada fila; saber si la plataforma aplica la regla en la realidad exige observar su funcionamiento.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 10 — CONDICIONES SUFICIENTES Y NECESARIAS
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="Bloque 3 · Condiciones">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Bloque 3 · 50–65 min · Copi &amp; Cohen pp. 342–343</div>
+    <div class="slide-title">Condiciones suficientes y necesarias</div>
+    <div class="slide-subtitle">Traducir «si» y «solo si» decide el orden de la flecha (<span class="logic">p → q</span> vs. <span class="logic">q → p</span>)</div>
+    <div class="two-cols mt1" style="max-width:1040px;">
+      <div class="card" style="border-top:4px solid var(--accent);">
+        <div class="card-label">Fórmula: p → q</div>
+        <div class="card-title">p es suficiente para q · q es necesaria para p</div>
+        <div class="card-body">
+          Se lee: «<strong>Si</strong> p, entonces q» o «p <strong>solo si</strong> q».<br><br>
+          «Ana accede (<span class="logic">p</span>) <strong>solo si</strong> tiene permiso (<span class="logic">q</span>)»:<br>
+          Tener permiso es <strong>necesario</strong> para acceder; sin permiso no puede haber acceso válido.
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--purple);">
+        <div class="card-label" style="color:var(--purple);">Fórmula inversa: q → p</div>
+        <div class="card-title">q es suficiente para p · p es necesaria para q</div>
+        <div class="card-body">
+          Se lee: «<strong>Si</strong> q, entonces p».<br><br>
+          «<strong>Si</strong> Ana tiene permiso (<span class="logic">q</span>), entonces accede (<span class="logic">p</span>)»:<br>
+          Aquí el permiso <strong>basta</strong> (es suficiente) para que ocurra el acceso.
+        </div>
+      </div>
+    </div>
+    <div class="bq mt3 mx-auto" style="max-width:1040px; border-left-color:var(--green);">
+      🔑 <strong>Regla mnemotécnica:</strong> Lo que va después de <strong>«si»</strong> (sin «solo») es el <strong>antecedente</strong> (condición suficiente). Lo que va después de <strong>«solo si»</strong> es el <strong>consecuente</strong> (condición necesaria).
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 11 — BICONDICIONAL Y COLUMNAS AUXILIARES (65–75 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 4 · Bicondicional y Fórmulas">
+    <div class="sbadge"><span class="dot" style="background:var(--purple)"></span>Bloque 4 · 65–75 min · Copi &amp; Cohen § 8.5</div>
+    <div class="slide-title">Bicondicional y cálculo por partes</div>
+    <div class="slide-subtitle">Dos direcciones simultáneas (<span class="logic">p ↔ q</span>) y cálculo de adentro hacia afuera</div>
+    <div class="two-cols mt1" style="max-width:1080px; align-items:start;">
+      <div class="card">
+        <div class="card-label">Bicondicional · p ↔ q</div>
+        <div class="card-body mb1">Reúne <span class="logic">(p → q) ∧ (q → p)</span>: «si y solo si». Es <strong class="val-v">V</strong> cuando ambas tienen el <strong>mismo valor</strong> (VV y FF).</div>
+        <table class="ttbl">
+          <thead><tr><th>p</th><th>q</th><th>p ↔ q</th></tr></thead>
+          <tbody>
+            <tr class="row-valid"><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+            <tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr>
+            <tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr class="row-valid"><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-label" style="color:var(--purple);">Columnas auxiliares · ¬(p ∧ q) vs ¬p ∧ ¬q</div>
+        <div class="card-body mb1">Primero el paréntesis, luego la negación exterior. Observa que <span class="logic">¬(p ∧ q)</span> y <span class="logic">¬p ∧ ¬q</span> <strong>no son iguales</strong>:</div>
+        <table class="ttbl">
+          <thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p ∧ ¬q</th></tr></thead>
+          <tbody>
+            <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr>
+            <tr class="row-alert"><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr class="row-alert"><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 12 — CLASIFICACIÓN DE FÓRMULAS
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="Bloque 4 · Clasificación de Fórmulas">
+    <div class="sbadge"><span class="dot" style="background:var(--purple)"></span>Bloque 4 · 65–75 min · Copi &amp; Cohen pp. 361–362</div>
+    <div class="slide-title">Tautología, Contradicción y Contingencia</div>
+    <div class="slide-subtitle">La clasificación depende de <strong>todas</strong> las filas de la columna final, nunca de una sola fila</div>
+    <div class="grid g3 mt1" style="max-width:1060px;">
+      <div class="card" style="border-top:4px solid var(--green);">
+        <div class="card-label" style="color:var(--green);">Todas las filas V</div>
+        <div class="card-title">Tautología</div>
+        <div class="logic-block" style="font-size:1.1rem;">p ∨ ¬p</div>
+        <div class="card-body mt1">Su columna final es <strong class="val-v">V</strong> en todas las asignaciones posibles (V y F). No afirma un hecho particular, sino una verdad lógica estructural.</div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--pink);">
+        <div class="card-label" style="color:var(--pink);">Todas las filas F</div>
+        <div class="card-title">Contradicción</div>
+        <div class="logic-block" style="font-size:1.1rem; color:var(--pink);">p ∧ ¬p</div>
+        <div class="card-body mt1">Su columna final es <strong class="val-f">F</strong> en todas las asignaciones posibles. Nunca puede ser verdadera simultáneamente.</div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--amber);">
+        <div class="card-label" style="color:var(--amber);">Al menos una V y una F</div>
+        <div class="card-title">Contingencia</div>
+        <div class="logic-block" style="font-size:1.1rem; color:var(--amber);">p ∧ q · p → q</div>
+        <div class="card-body mt1">Su valor cambia según los hechos o la fila elegida: tiene al menos una fila <strong class="val-v">V</strong> y al menos una <strong class="val-f">F</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 13 — VALIDAR O REFUTAR UNA FORMA (75–90 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Bloque 4 · Contraejemplo Formal">
+    <div class="sbadge"><span class="dot" style="background:var(--purple)"></span>Bloque 4 · 75–90 min · Copi &amp; Cohen § 8.4</div>
+    <div class="slide-title">¿Cuándo es válida o inválida una forma?</div>
+    <div class="slide-subtitle">Una forma válida impide simultáneamente <strong>todas las premisas V y la conclusión F</strong></div>
+    <div class="two-cols mt1" style="max-width:1100px; align-items:start;">
+      <div class="card" style="border-top:4px solid var(--green);">
+        <div class="card-label" style="color:var(--green);">Forma I · Válida (p → q, p, ∴ q)</div>
+        <table class="ttbl mt1">
+          <thead><tr><th>p</th><th>q</th><th>P1: p → q</th><th>P2: p</th><th>∴ C: q</th></tr></thead>
+          <tbody>
+            <tr class="row-valid"><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+            <tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+            <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr>
+          </tbody>
+        </table>
+        <div class="card-body mt2" style="font-size:0.95rem;">
+          ✅ En la única fila donde ambas premisas son V (<strong>VV</strong>), la conclusión también es V. No existe contraejemplo.
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid var(--pink);">
+        <div class="card-label" style="color:var(--pink);">Forma II · Inválida (p → q, q, ∴ p)</div>
+        <table class="ttbl mt1">
+          <thead><tr><th>p</th><th>q</th><th>P1: p → q</th><th>P2: q</th><th>∴ C: p</th></tr></thead>
+          <tbody>
+            <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr>
+            <tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr>
+            <tr id="s13-fv-row"><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr>
+            <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr>
+          </tbody>
+        </table>
+        <button class="ex-sol-btn mt2" onclick="revealSlide13Counter()">
+          <span>🔍</span> <span id="s13-btn-lbl">Señalar fila contraejemplo y ejemplo</span>
+        </button>
+        <div class="ex-sol-card mt1" id="s13-counter-box" style="border-left-color:var(--pink); background:rgba(190,24,93,0.08);">
+          <strong>Fila 3 (p = F, q = V):</strong> P1 es V y P2 es V, pero la conclusión <strong>p es F</strong>.<br>
+          <em>En palabras:</em> «Si recibo notificación (<span class="logic">p</span>), se ilumina la pantalla (<span class="logic">q</span>). Se iluminó (<span class="val-v">V</span>), pero no recibí notificación (<span class="val-f">F</span>): alguien encendió la pantalla con el botón».
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 14 — DESCANSO (90–100 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-break" data-sec="">
+    <div style="text-align:center;">
+      <div style="font-size:80px; margin-bottom:20px;">☕</div>
+      <div class="cover-title" style="font-size:clamp(2.5rem,6vw,5rem);">Descanso</div>
+      <div class="cover-sub" style="font-size:clamp(1.1rem,2vw,1.6rem);">10 minutos · Minuto 90–100</div>
+      <div style="margin-top:28px; color:var(--text-muted); font-family:var(--font-mono); font-size:.95rem; letter-spacing:.05em;">
+        Al regresar: Tetratlón del Capítulo II y Taller de Tablas de Verdad
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 15 — CRONOGRAMA DEL TALLER (100–180 min)
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · 100–180 min">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Taller · 100–180 min</div>
+    <div class="slide-title">Taller de ejercicios</div>
+    <div class="slide-subtitle">Tetratlón del capítulo II (pp. 14–15) y cuadernillo complementario</div>
+    <div class="taller-grid mt2 mx-auto">
+      <div class="tc-card" style="border-top:4px solid var(--accent);">
+        <div class="tc-time">100–130 min</div>
+        <div class="tc-title">Tetratlón II — 4 fragmentos (pp. 14–15)</div>
+        <div class="tc-body">Jung, Russell, Bunge y Piaget: identificar quién argumenta, tesis, razones, contratesis u orden.<br>
+          <em>8 min individual · 8 min parejas · 14 min corrección</em></div>
+      </div>
+      <div class="tc-card" style="border-top:4px solid var(--green);">
+        <div class="tc-time">130–160 min</div>
+        <div class="tc-title">Taller complementario</div>
+        <div class="tc-body">Integrar demostración y refutación con condiciones y tablas de verdad.<br>
+          <em>Priorizar en aula: Ejercicios 1 y 4 completos, y 7.a y 7.d (El resto queda como refuerzo)</em></div>
+      </div>
+      <div class="tc-card" style="border-top:4px solid var(--purple);">
+        <div class="tc-time">160–176 min</div>
+        <div class="tc-title">Diálogo con un chat (LLM)</div>
+        <div class="tc-body">Construir un caso contrario propio, enviarlo al chat y verificar sus filas contra la tabla propia.<br>
+          <em>Ejercicio 8 en parejas (conducción y verificación de tabla)</em></div>
+      </div>
+      <div class="tc-card" style="border-top:4px solid var(--amber);">
+        <div class="tc-time">176–180 min</div>
+        <div class="tc-title">Cierre individual</div>
+        <div class="tc-body">Comprobar qué constituye un contraejemplo formal señalando la fila decisiva.<br>
+          <em>Ejercicio 7.b y explicación breve</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TETRATLÓN 1 — Jung y las teorías psicológicas
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Tetratlón 1/4">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Tetratlón 1 · p. 14 del libro base</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Jung y las teorías psicológicas</div>
+    <div class="slide-subtitle">Carl Gustav Jung · Fragmento citado en Salazar et al. (s. f., p. 14)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO ORIGINAL</span>
+          <span style="color:var(--accent);">p. 14 del libro base</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.03rem; line-height:1.75; padding:0.4rem 0;">
+          «<span class="t-conclusion" id="t1-c">Es un error completamente imperdonable el aceptar las conclusiones de una psicología judía como generalmente válidas.</span> <span class="t-premise" id="t1-p">Nadie soñaría con tomar psicología china o india como aplicable a nosotros. Con el comienzo de la diferenciación racial, se han desarrollado también diferencias esenciales en la psique colectiva.</span> <span class="t-indicator" id="t1-i">Por esta razón</span> no podemos trasplantar el espíritu de una raza extranjera de un modo global a nuestra propia mentalidad sin lesionar ésta.»
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:auto; padding-top:0.85rem; border-top:1px solid var(--border);">
+          <button class="ex-sol-btn" onclick="toggleTetraMark('t1')">
+            <span>🎨</span> <span id="t1-btn-text">Mostrar Marcación Analítica</span>
+          </button>
+        </div>
+        <div id="t1-legend" style="display:none; gap:0.8rem; font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(37,99,235,0.7); border-radius:2px;"></span> Razones / Argumentos</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(220,38,38,0.7); border-radius:2px;"></span> Juicio refutatorio</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(245,158,11,0.8); border-radius:2px;"></span> Indicador</span>
+        </div>
+      </div>
+
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>ANÁLISIS DEL TETRATLÓN</span>
+          <span>Cuatro tareas</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.94rem;">
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--accent);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">a) ¿Quién refuta?</strong>
+            <span>Carl Gustav Jung, autor a quien el libro atribuye el fragmento.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--red);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">b) Tesis refutada (reconstruida)</strong>
+            <span>La pretensión de validez general de las conclusiones de la psicología que el autor identifica mediante una categoría étnica.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--green);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">c) Argumentos ofrecidos</strong>
+            <span>Compara la aceptación de distintas psicologías según su origen, postula diferencias entre psiques colectivas atribuidas a grupos raciales y afirma que trasladar una a otro grupo dañaría la mentalidad receptora.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--purple);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">d) Contratesis reconstruida</strong>
+            <span>Las conclusiones de una psicología asociada a un grupo determinado no serían aplicables globalmente a otro grupo.</span>
+          </div>
+          <div style="background:rgba(180,83,9,0.08); border:1px solid rgba(180,83,9,0.28); border-radius:6px; padding:0.75rem 0.95rem; font-size:0.88rem; color:var(--text-secondary); line-height:1.5;">
+            <strong style="color:var(--amber); font-family:var(--font-mono); font-size:0.78rem; display:block; margin-bottom:0.2rem;">PARA LA CORRECCIÓN CRÍTICA</strong>
+            Esas son afirmaciones del pasaje histórico. Sus categorías y generalizaciones raciales requieren análisis crítico y <strong>no deben asumirse como hechos psicológicos establecidos</strong>. El origen de una teoría no demuestra por sí solo su validez o invalidez.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TETRATLÓN 2 — Russell y la discrepancia
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Tetratlón 2/4">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Tetratlón 2 · p. 14 del libro base</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Russell y la discrepancia con el entorno</div>
+    <div class="slide-subtitle">Bertrand Russell · <em>La conquista de la felicidad</em> (p. 82)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO ORIGINAL</span>
+          <span style="color:var(--accent);">p. 14 del libro base</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.03rem; line-height:1.75; padding:0.4rem 0;">
+          «En esta época del psicoanálisis es habitual suponer que si algún joven no está en armonía con su entorno, tiene que deberse a algún trastorno psicológico. <span class="t-conclusion" id="t2-c">En mi opinión, esto es un completo error.</span> <span class="t-indicator" id="t2-i">Supongamos, por ejemplo,</span> <span class="t-premise" id="t2-p">que los padres de un joven creen que la teoría de la evolución es abominable. En un caso así, solo se necesita inteligencia para discrepar de ellos. No estar en armonía con el propio entorno es una desgracia, de acuerdo, pero no siempre es una desgracia que haya que evitar a toda costa. Cuando el entorno es estúpido, lleno de prejuicios o cruel, no estar en armonía con él es un mérito.</span>»
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:auto; padding-top:0.85rem; border-top:1px solid var(--border);">
+          <button class="ex-sol-btn" onclick="toggleTetraMark('t2')">
+            <span>🎨</span> <span id="t2-btn-text">Mostrar Marcación Analítica</span>
+          </button>
+        </div>
+        <div id="t2-legend" style="display:none; gap:0.8rem; font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(37,99,235,0.7); border-radius:2px;"></span> Argumentos / Caso</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(220,38,38,0.7); border-radius:2px;"></span> Juicio refutatorio</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(245,158,11,0.8); border-radius:2px;"></span> Indicador de ejemplo</span>
+        </div>
+      </div>
+
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>ANÁLISIS DEL TETRATLÓN</span>
+          <span>Cuatro tareas</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.94rem;">
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--accent);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">a) ¿Quién refuta?</strong>
+            <span>Bertrand Russell.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--red);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">b) Tesis refutada</strong>
+            <span>Si un joven no está en armonía con su entorno, necesariamente tiene un trastorno psicológico.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--green);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">c) Argumentos ofrecidos</strong>
+            <span>Un joven puede discrepar de sus padres por una razón intelectualmente defendible (aceptar la evolución cuando ellos la rechazan). En un entorno prejuicioso o cruel, la discrepancia puede ser valiosa.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--purple);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">d) Contratesis reconstruida</strong>
+            <span>La falta de armonía con el entorno no implica necesariamente un trastorno; puede responder a un desacuerdo razonado.</span>
+          </div>
+          <div style="background:rgba(37,99,235,0.06); border:1px solid rgba(37,99,235,0.25); border-radius:6px; padding:0.75rem 0.95rem; font-size:0.88rem; color:var(--text-secondary); line-height:1.5;">
+            <strong style="color:var(--accent-lt); font-family:var(--font-mono); font-size:0.78rem; display:block; margin-bottom:0.2rem;">PRECISIÓN DOCENTE</strong>
+            El caso propuesto cuestiona el «necesariamente» (tiene que deberse) de la tesis. Tampoco establece que toda discrepancia sea mérito: diferenciar ambos alcances al corregir.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TETRATLÓN 3 — Bunge y el conductismo
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Tetratlón 3/4">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Tetratlón 3 · pp. 14–15 del libro base</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Bunge y el conductismo</div>
+    <div class="slide-subtitle">Mario Bunge · <em>Ser, saber, hacer</em> (2002, p. 96)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO ORIGINAL</span>
+          <span style="color:var(--accent);">pp. 14–15 del libro base</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.02rem; line-height:1.72; padding:0.4rem 0;">
+          «… <span class="t-premise" id="t3-p">el conductismo a) niega la existencia misma de procesos mentales, o al menos niega la posibilidad de estudiarlos científicamente; b) se rehúsa a aprender de la neurociencia, la que trata de cosas y procesos en su mayor parte invisibles al ojo desnudo; c) desconfía de toda teoría, y d) se niega a explicar lo que observa.</span> <span class="t-indicator" id="t3-i">Por estos cuatro motivos</span>, <span class="t-conclusion" id="t3-c">el conductismo es oscurantista aun cuando critica el apriorismo y el idealismo.</span> Sin embargo, estos defectos no les impidieron a Watson, Skinner (ambos conductistas) y otros hacer importantes descubrimientos en el campo de la memoria y del aprendizaje, así como mejorar el rigor en la experimentación psicológica e inaugurar la terapia del comportamiento, que, aunque limitada, es exitosa.»
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:auto; padding-top:0.85rem; border-top:1px solid var(--border);">
+          <button class="ex-sol-btn" onclick="toggleTetraMark('t3')">
+            <span>🎨</span> <span id="t3-btn-text">Mostrar Marcación Analítica</span>
+          </button>
+        </div>
+        <div id="t3-legend" style="display:none; gap:0.8rem; font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(37,99,235,0.7); border-radius:2px;"></span> Razones de la crítica</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(220,38,38,0.7); border-radius:2px;"></span> Juicio crítico defendido</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(245,158,11,0.8); border-radius:2px;"></span> Indicador</span>
+        </div>
+      </div>
+
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>ANÁLISIS DEL TETRATLÓN</span>
+          <span>Cuatro tareas</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.94rem;">
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--accent);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">a) ¿Quién refuta?</strong>
+            <span>Mario Bunge.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--red);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">b) Tesis refutada (reconstrucción)</strong>
+            <span>No aparece una sola tesis adversaria explícita. Reconstrucción posible: el enfoque conductista descrito constituiría una explicación científica suficiente de la vida mental y del comportamiento.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--green);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">c) Argumentos ofrecidos</strong>
+            <span>Le atribuye negar los procesos mentales (o su estudio científico), rechazar aportes de la neurociencia, desconfiar de la teoría y limitarse a describir en vez de explicar.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.75rem 0.95rem; border-radius:6px; border-left:3px solid var(--purple);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.2rem;">d) Contratesis reconstruida</strong>
+            <span>Ese enfoque tendría limitaciones científicas importantes y no bastaría para explicar todos los fenómenos psicológicos.</span>
+          </div>
+          <div style="background:rgba(37,99,235,0.06); border:1px solid rgba(37,99,235,0.25); border-radius:6px; padding:0.75rem 0.95rem; font-size:0.88rem; color:var(--text-secondary); line-height:1.5;">
+            <strong style="color:var(--accent-lt); font-family:var(--font-mono); font-size:0.78rem; display:block; margin-bottom:0.2rem;">PRECISIÓN DOCENTE</strong>
+            «El conductismo es oscurantista» es el juicio crítico que Bunge defiende, <strong>no</strong> la tesis adversaria. Además, al final reconoce aportes en memoria, aprendizaje y terapia; no atribuirle que «no hizo ningún aporte».
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       TETRATLÓN 4 — Piaget y la génesis del conocimiento
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Tetratlón 4/4">
+    <div class="sbadge"><span class="dot" style="background:var(--amber)"></span>Tetratlón 4 · p. 15 del libro base</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Piaget y la génesis del conocimiento</div>
+    <div class="slide-subtitle">Jean Piaget · <em>La epistemología genética</em> (1970, pp. 9–10)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>FRAGMENTO ORIGINAL (DEMOSTRACIÓN)</span>
+          <span style="color:var(--accent);">p. 15 del libro base</span>
+        </div>
+        <div class="ex-case-body" style="font-style:italic; font-size:1.01rem; line-height:1.72; padding:0.4rem 0;">
+          «Lo característico de la epistemología genética es tratar de descubrir las raíces de los distintos tipos de conocimiento desde sus formas más elementales y seguir su desarrollo en los niveles ulteriores inclusive hasta el pensamiento científico. […] <span class="t-premise" id="t4-p">La gran lección que nos proporciona el estudio de la (o de las) génesis es que no existen comienzos absolutos. En otros términos, es necesario decir, o todo es génesis, incluida la construcción de una teoría nueva en el estado más actual de las ciencias, o que la génesis retrocede indefinidamente, […].</span> <span class="t-indicator" id="t4-i">Por tanto</span>, <span class="t-conclusion" id="t4-c">afirmar la necesidad de remontarse a la génesis no significa de ninguna manera conceder un privilegio a tal o cual fase considerada como primera, hablando en absoluto; consiste, por el contrario, en recordar la existencia de una construcción indefinida y sobre todo en insistir sobre el hecho de que, para comprender las razones y el mecanismo, es preciso conocer todas las fases al máximo.</span>»
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:auto; padding-top:0.85rem; border-top:1px solid var(--border);">
+          <button class="ex-sol-btn" onclick="toggleTetraMark('t4')">
+            <span>🎨</span> <span id="t4-btn-text">Mostrar Marcación Analítica</span>
+          </button>
+        </div>
+        <div id="t4-legend" style="display:none; gap:0.8rem; font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(37,99,235,0.7); border-radius:2px;"></span> Premisas / Razones</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(220,38,38,0.7); border-radius:2px;"></span> Tesis / Conclusión</span>
+          <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:rgba(245,158,11,0.8); border-radius:2px;"></span> Indicador</span>
+        </div>
+      </div>
+
+      <div class="ex-panel">
+        <div class="ex-source-header">
+          <span>ANÁLISIS DEL TETRATLÓN</span>
+          <span>Tres tareas</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.94rem;">
+          <div style="background:var(--bg-subtle); padding:0.8rem 0.95rem; border-radius:6px; border-left:3px solid var(--red);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.25rem;">a) Tesis que se pretende demostrar</strong>
+            <span>Comprender la construcción del conocimiento exige estudiar su desarrollo y todas sus fases. Investigar la génesis no equivale a conceder prioridad absoluta a una primera fase.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.8rem 0.95rem; border-radius:6px; border-left:3px solid var(--accent);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.25rem;">b) Argumentos a favor</strong>
+            <span>Los conocimientos tienen formas elementales y desarrollos posteriores. El estudio de su génesis muestra continuidad de construcción y ausencia de un comienzo absoluto; conocer las fases ayuda a comprender sus razones y mecanismos.</span>
+          </div>
+          <div style="background:var(--bg-subtle); padding:0.8rem 0.95rem; border-radius:6px; border-left:3px solid var(--purple);">
+            <strong style="display:block; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.25rem;">c) Ordenación</strong>
+            <span style="font-weight:600;">Predomina Premisas → Conclusión (P → C). «Por tanto» introduce la conclusión extensa, desarrollada en las frases siguientes.</span>
+          </div>
+          <div style="background:rgba(37,99,235,0.06); border:1px solid rgba(37,99,235,0.25); border-radius:6px; padding:0.8rem 0.95rem; font-size:0.88rem; color:var(--text-secondary); line-height:1.5;">
+            <strong style="color:var(--accent-lt); font-family:var(--font-mono); font-size:0.78rem; display:block; margin-bottom:0.2rem;">PRECISIÓN DOCENTE</strong>
+            La primera oración sitúa el propósito de la epistemología genética; las afirmaciones sobre ausencia de comienzos absolutos funcionan como razones para la conclusión introducida por «por tanto».
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       EJERCICIO 1 — Una afirmación demasiado amplia sobre el repaso
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 1/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 1 · 1. Demostrar y refutar</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Una afirmación demasiado amplia sobre el repaso</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 1</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Roediger y Karpicke (2006) compararon volver a estudiar textos con intentar recordarlos antes de una prueba final. A los cinco minutos, volver a estudiar produjo mejores resultados. A los dos días y a la semana, la práctica de recordar produjo mejor retención. <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener noreferrer">Estudio sobre retención de textos</a></p><p style="margin-bottom:0.65rem;">En este diálogo didáctico, Elena dice «Intentar recordar es superior a releer en todas las pruebas, sin importar cuánto tiempo haya pasado». Diego responde «El resultado a los cinco minutos cuestiona esa afirmación. La ventaja depende del plazo que se compare».</p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes separar la tesis de Elena, el resultado que utiliza Diego y la parte exacta de la tesis a la que se opone. Luego puedes formular una contratesis que conserve los tres plazos.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e1-a" onclick="switchExTab(1, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e1-b" onclick="switchExTab(1, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e1-c" onclick="switchExTab(1, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e1-d" onclick="switchExTab(1, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e1-a">
+            <div class="ex-q-statement">¿Qué tesis cuestiona Diego?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e1-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que intentar recordar tenga ventajas en alguna prueba posterior.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que las dos estrategias se hayan comparado mediante textos.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-a-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que intentar recordar sea superior en todas las pruebas, cualquiera que sea el plazo.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que el tiempo pueda relacionarse con la retención.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(1, 'a')">
+              <span>💡</span> <span id="btn-lbl-e1-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e1-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Diego cuestiona una superioridad universal independiente del plazo. La tesis admite como prueba contraria un plazo en que el resultado se invierta.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e1-b">
+            <div class="ex-q-statement">¿Qué resultado usa como razón para cuestionarla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e1-b-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>A los cinco minutos rindió mejor el grupo que volvió a estudiar.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>A los dos días rindió mejor el grupo que practicó recordar.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-b-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>A la semana rindió mejor el grupo que practicó recordar.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Los participantes recordaron exactamente lo mismo en todos los plazos.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(1, 'b')">
+              <span>💡</span> <span id="btn-lbl-e1-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e1-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">A los cinco minutos, volver a estudiar superó a practicar recordar. Esa comparación basta para contradecir «en todas las pruebas». Los dos resultados demorados favorecen recordar y no cuestionan esa tesis por sí solos.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e1-c">
+            <div class="ex-q-statement">¿Qué contratesis está mejor respaldada por la comparación?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e1-c-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Releer supera a recordar en toda situación.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>La práctica de recordar solo funciona si se utiliza un chat.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>La diferencia entre estrategias desaparece cuando se evalúa la memoria.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-c-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>En el estudio, la ventaja entre estrategias cambia según el plazo de la prueba.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(1, 'c')">
+              <span>💡</span> <span id="btn-lbl-e1-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e1-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Conserva las diferencias entre plazos. A reemplaza una universalidad refutada por la universalidad opuesta. B agrega el uso de un chat y C borra diferencias que se registraron.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e1-d">
+            <div class="ex-q-statement">¿Qué procedimiento siguió Diego?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e1-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Probó la contratesis con una tabla de verdad de dos letras.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-d-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>Usó un resultado contrario a la afirmación universal de Elena.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Cuestionó a Elena por su personalidad.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e1-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Mostró que ninguno de los tres resultados puede ser verdadero.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(1, 'd')">
+              <span>💡</span> <span id="btn-lbl-e1-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e1-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Diego opone a la tesis universal un resultado específico que no concuerda con ella. Para refutar una afirmación universal de ese alcance, el caso contrario es pertinente (Roediger & Karpicke, 2006; Salazar et al., s. f., pp. 12–13).</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 2 — ¿Criticar una defensa equivale a probar lo contrario?
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 2/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 2 · 1. Demostrar y refutar</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">¿Criticar una defensa equivale a probar lo contrario?</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 2</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Caso didáctico sobre IA y aprendizaje. Julia afirma «Este tutor de IA mejora el aprendizaje porque escribe respuestas muy extensas». Omar responde «La extensión de una respuesta no basta para saber cuánto aprendió el estudiante». El estudio de Bastani et al. (2025) distingue el desempeño durante la práctica con ayuda y el desempeño posterior sin ayuda. <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">Estudio sobre IA y aprendizaje</a></p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes escribir la tesis de Julia y la razón que ofrece. Después pregunta si Omar aportó un caso en que el tutor perjudica el aprendizaje o si señaló una limitación de esa razón.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e2-a" onclick="switchExTab(2, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e2-b" onclick="switchExTab(2, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e2-c" onclick="switchExTab(2, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e2-d" onclick="switchExTab(2, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e2-a">
+            <div class="ex-q-statement">¿Qué parte cuestiona directamente Omar?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e2-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que una respuesta extensa pueda estar bien redactada.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-a-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que la extensión baste como evidencia de una mejora del aprendizaje.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que exista una herramienta llamada tutor de IA.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que un estudiante pueda aprender leyendo.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(2, 'a')">
+              <span>💡</span> <span id="btn-lbl-e2-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e2-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Omar examina la conexión entre longitud de la respuesta y aprendizaje. A, C y D son afirmaciones diferentes de la razón que cuestiona.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e2-b">
+            <div class="ex-q-statement">¿Qué conclusión permite la objeción de Omar por sí sola?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e2-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>El tutor perjudica a todos los estudiantes.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>La tesis de Julia ya está demostrada porque tiene una razón.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-b-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>Hay que comprobar si el tutor mejora el aprendizaje con evidencia adicional.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Toda respuesta breve enseña mejor que una extensa.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(2, 'b')">
+              <span>💡</span> <span id="btn-lbl-e2-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e2-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La razón es insuficiente para decidir la tesis. Queda pendiente comprobar la mejora. De la objeción no se obtiene que el tutor perjudique, que las respuestas breves sean superiores ni que la tesis ya esté demostrada.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e2-c">
+            <div class="ex-q-statement">¿Qué dato sería más pertinente para evaluar la tesis sobre el aprendizaje?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e2-c-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>Cómo resuelven los estudiantes tareas posteriores sin el tutor, en una comparación adecuada.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Cuántos párrafos puede generar el tutor en un minuto.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Si Julia prefiere respuestas extensas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-c-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Cuántas personas recomiendan el tutor en su página.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(2, 'c')">
+              <span>💡</span> <span id="btn-lbl-e2-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e2-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Una tarea posterior sin ayuda aporta información sobre lo que el estudiante puede hacer por sí mismo. La cantidad de párrafos, la preferencia o la popularidad no establecen ese aprendizaje.</p>
+              
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e2-d">
+            <div class="ex-q-statement">Si un chat concluye «Omar probó que el tutor es perjudicial», ¿qué revisión corresponde?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e2-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>«Omar confirmó que los estudiantes aprendieron menos».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-d-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>«Omar probó que toda respuesta extensa es falsa».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>«Omar mostró que ninguna herramienta puede mejorar el aprendizaje».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e2-d-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>«Omar cuestionó la razón ofrecida. El efecto del tutor requiere una comprobación independiente».</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(2, 'd')">
+              <span>💡</span> <span id="btn-lbl-e2-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e2-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Expresa lo que realmente alcanzó la objeción. Las otras respuestas convierten la limitación de una defensa en una afirmación más fuerte sobre el efecto del tutor (Bastani et al., 2025; Weston, 2006, pp. 101–104).</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 3 — El aviso y la mirada
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 3/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 3 · 2. Calcular conectores</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">El aviso y la mirada</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 3</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Caso didáctico inspirado en el tema de atención y avisos del teléfono estudiado por Stothart et al. (2015). Sean <strong>p</strong> «Ana recibe un aviso» y <strong>q</strong> «Ana mira el teléfono». <a href="https://doi.org/10.1037/xhp0000100" target="_blank" rel="noopener noreferrer">Estudio sobre notificaciones y atención</a></p><p style="margin-bottom:0.65rem;">Se quiere representar «No es cierto que Ana reciba un aviso y mire el teléfono».</p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes construir las cuatro filas, calcular primero la conjunción y después negarla. Para comparar con «Ana no recibe un aviso y no mira el teléfono», calcula también las negaciones por separado.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e3-a" onclick="switchExTab(3, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e3-b" onclick="switchExTab(3, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e3-c" onclick="switchExTab(3, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e3-d" onclick="switchExTab(3, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e3-a">
+            <div class="ex-q-statement">¿Qué fórmula representa el primer enunciado?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e3-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>¬p ∧ ¬q</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>p ∧ ¬q</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>¬p ∨ q</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-a-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>¬(p ∧ q)</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(3, 'a')">
+              <span>💡</span> <span id="btn-lbl-e3-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e3-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">«No es cierto que» niega toda la conjunción. La expresión interior es p ∧ q. Negar cada componente por separado requeriría el enunciado de la segunda comparación.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p</th><th>¬q</th><th>¬p ∧ ¬q</th><th>p ∨ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e3-b">
+            <div class="ex-q-statement">¿Qué columna final corresponde a ese enunciado en el orden VV, VF, FV, FF?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e3-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>V, F, F, F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-b-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>F, V, V, V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-b-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>F, F, F, V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>V, V, V, F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(3, 'b')">
+              <span>💡</span> <span id="btn-lbl-e3-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e3-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La conjunción interior es V solo en la primera fila. Al negarla se obtiene F, V, V, V.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p</th><th>¬q</th><th>¬p ∧ ¬q</th><th>p ∨ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e3-c">
+            <div class="ex-q-statement">¿En qué fila el primer enunciado es V y «Ana no recibe un aviso y no mira el teléfono» es F?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e3-c-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>p = V, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>p = V, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p = F, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-c-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>No existe una fila con esa combinación.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(3, 'c')">
+              <span>💡</span> <span id="btn-lbl-e3-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e3-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Si Ana recibe un aviso pero no mira el teléfono, ¬(p ∧ q) es V y ¬p ∧ ¬q es F. La fila FV también tiene esa propiedad, pero no aparece como alternativa. VV hace falso el primer enunciado y FF hace verdaderos ambos.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p</th><th>¬q</th><th>¬p ∧ ¬q</th><th>p ∨ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e3-d">
+            <div class="ex-q-statement">¿Qué valor tiene «Ana recibe un aviso o mira el teléfono, o ambas cosas» cuando p = V y q = V?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e3-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>F, porque «o» siempre exige elegir una sola alternativa.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-d-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>F, porque las dos proposiciones deben ser falsas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-d-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>V, porque la disyunción inclusiva permite ambas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e3-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Depende de quién haya enviado el aviso, aunque p y q ya tengan valores fijados.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(3, 'd')">
+              <span>💡</span> <span id="btn-lbl-e3-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e3-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">«O ambas cosas» establece el sentido inclusivo. En la fila VV, p ∨ q es V (Copi & Cohen, 2007, pp. 324–328).</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>¬(p ∧ q)</th><th>¬p</th><th>¬q</th><th>¬p ∧ ¬q</th><th>p ∨ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 4 — El permiso del aula virtual
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 4/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 4 · 3. Condiciones suficientes y necesarias</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">El permiso del aula virtual</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 4</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Caso didáctico de un taller de psicología. La regla establece «Ana accede a la actividad solo si tiene permiso». Sean <strong>p</strong> «Ana accede a la actividad» y <strong>q</strong> «Ana tiene permiso». Para los cálculos, representa la regla como un condicional material (Copi & Cohen, 2007, pp. 338–343).</p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes decidir primero qué exige la regla cuando Ana accede. Después escribe la fórmula y calcula la fila que la incumpliría. Compara ese caso con tener permiso y no abrir la actividad.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e4-a" onclick="switchExTab(4, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e4-b" onclick="switchExTab(4, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e4-c" onclick="switchExTab(4, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e4-d" onclick="switchExTab(4, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e4-a">
+            <div class="ex-q-statement">¿Qué fórmula representa la regla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e4-a-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>p → q</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>q → p</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p ↔ q</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>p ∧ q</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(4, 'a')">
+              <span>💡</span> <span id="btn-lbl-e4-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e4-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">«Accede solo si tiene permiso» exige permiso cuando hay acceso. Se traduce p → q.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e4-b">
+            <div class="ex-q-statement">¿Cómo se relacionan las condiciones según esa regla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e4-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Tener permiso basta para asegurar el acceso.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Acceder y tener permiso son condiciones equivalentes.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-b-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>Tener permiso es necesario para acceder.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Acceder es necesario para tener permiso.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(4, 'b')">
+              <span>💡</span> <span id="btn-lbl-e4-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e4-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">El permiso es necesario. La regla no establece que siempre que haya permiso se produzca acceso. Por ello tampoco afirma equivalencia de condiciones.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e4-c">
+            <div class="ex-q-statement">¿Qué fila hace falsa la regla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e4-c-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>p = V, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>p = F, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p = F, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-c-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>p = V, q = F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(4, 'c')">
+              <span>💡</span> <span id="btn-lbl-e4-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e4-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La regla falla al acceder sin permiso. Es la fila p = V, q = F.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e4-d">
+            <div class="ex-q-statement">Si Ana tiene permiso y decide no acceder, ¿qué valor toma la fórmula de la regla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e4-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>F, porque el permiso obliga a acceder.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-d-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>V, porque esa fila es p = F, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>F, porque antecedente y consecuente tienen valores distintos.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e4-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Es imposible calcularla con esos datos.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(4, 'd')">
+              <span>💡</span> <span id="btn-lbl-e4-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e4-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Tener permiso y no acceder corresponde a FV, donde p → q es V. El valor corresponde a la fila concreta. La tabla no comprueba que la plataforma aplique la regla en todas sus operaciones (Copi & Cohen, 2007, pp. 338–343).</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 5 — ¿La regla vale en ambos sentidos?
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 5/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 5 · 3. Condiciones suficientes y necesarias</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">¿La regla vale en ambos sentidos?</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 5</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">En otra actividad del mismo taller se establece «El registro se completa si y solo si se envió la respuesta». Sean <strong>p</strong> «El registro se completa» y <strong>q</strong> «Se envió la respuesta». Este caso didáctico permite comparar una condición con un bicondicional (Copi & Cohen, 2007, pp. 342–343 y 362).</p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes escribir las dos direcciones que exige «si y solo si». Completa una columna del bicondicional y compárala con la del condicional p → q.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e5-a" onclick="switchExTab(5, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e5-b" onclick="switchExTab(5, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e5-c" onclick="switchExTab(5, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e5-d" onclick="switchExTab(5, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e5-a">
+            <div class="ex-q-statement">¿Qué dos condiciones incluye la regla?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e5-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>p ∨ q y ¬p.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-a-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>p → q y q → p.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p → q y ¬q.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>p ∧ q y ¬p ∧ ¬q simultáneamente.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(5, 'a')">
+              <span>💡</span> <span id="btn-lbl-e5-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e5-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">El bicondicional reúne p → q y q → p. La primera condición exige que un registro completo tenga una respuesta enviada. La segunda exige que la respuesta enviada se acompañe de registro completo.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e5-b">
+            <div class="ex-q-statement">¿Qué columna corresponde a p ↔ q en VV, VF, FV, FF?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e5-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>V, F, V, V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>V, V, V, F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-b-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>F, V, V, F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-b-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>V, F, F, V.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(5, 'b')">
+              <span>💡</span> <span id="btn-lbl-e5-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e5-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Los valores coinciden en VV y FF. La columna es V, F, F, V.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e5-c">
+            <div class="ex-q-statement">¿En qué fila p → q es V y p ↔ q es F?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e5-c-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>p = V, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>p = V, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-c-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>p = F, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-c-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>p = F, q = F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(5, 'c')">
+              <span>💡</span> <span id="btn-lbl-e5-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e5-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">En FV el condicional p → q es V, pero el bicondicional es F porque q → p es F. El caso muestra qué añade exigir también la dirección inversa.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e5-d">
+            <div class="ex-q-statement">Si el sistema no completó el registro y no se envió la respuesta, ¿qué puede afirmarse a partir de esa fila?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e5-d-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>El bicondicional es V en esa asignación. La fila no demuestra por sí sola que la regla se cumpla en todos los casos.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-d-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>El bicondicional es F porque ambas proposiciones son falsas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>La observación prueba que todas las actividades de la plataforma funcionan correctamente.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e5-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>La tabla carece de una fila para ese caso.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(5, 'd')">
+              <span>💡</span> <span id="btn-lbl-e5-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e5-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">En FF, ambas proposiciones tienen el mismo valor y el bicondicional es V. Comprobar esa fila no garantiza el funcionamiento universal del sistema (Copi & Cohen, 2007, pp. 342–343 y 362).</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th><th>q → p</th><th>p ↔ q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 6 — Tres afirmaciones de un informe
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 6/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 6 · 4. Examinar fórmulas y argumentos</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Tres afirmaciones de un informe</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 6</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Caso didáctico. En un registro de una práctica de memoria, <strong>p</strong> significa «La respuesta quedó registrada». Se proponen estas fórmulas para examinar su estructura, usando las dos posibilidades de p (Copi & Cohen, 2007, pp. 361–362).</p><p style="margin-bottom:0.65rem;">• <strong>I.</strong> p ∨ ¬p<br>• <strong>II.</strong> p ∧ ¬p<br>• <strong>III.</strong> p</p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes escribir p = V y p = F y completar cada fórmula. Para clasificarla, revisa su columna completa.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e6-a" onclick="switchExTab(6, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e6-b" onclick="switchExTab(6, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e6-c" onclick="switchExTab(6, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e6-d" onclick="switchExTab(6, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e6-a">
+            <div class="ex-q-statement">¿Cómo se clasifican I, II y III, en ese orden?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e6-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Contingencia, contradicción, tautología.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Contradicción, tautología, contingencia.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-a-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>Tautología, contradicción, contingencia.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Tautología, contingencia, contradicción.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(6, 'a')">
+              <span>💡</span> <span id="btn-lbl-e6-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e6-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">I es V en todas las filas, II es F en todas y III cambia. Son tautología, contradicción y contingencia, respectivamente.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>¬p</th><th>I: p ∨ ¬p</th><th>II: p ∧ ¬p</th><th>III: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e6-b">
+            <div class="ex-q-statement">¿Qué valor tiene II en las dos filas?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e6-b-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>F en ambas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>V en ambas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-b-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>V cuando p es V y F cuando p es F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>F cuando p es V y V cuando p es F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(6, 'b')">
+              <span>💡</span> <span id="btn-lbl-e6-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e6-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Siempre que p es V, ¬p es F, y viceversa. La conjunción nunca reúne dos V.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>¬p</th><th>I: p ∨ ¬p</th><th>II: p ∧ ¬p</th><th>III: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e6-c">
+            <div class="ex-q-statement">¿Qué se necesita para clasificar una fórmula como tautología?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e6-c-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que sea V en la fila que describe lo ocurrido ese día.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que todas sus proposiciones simples sean verdaderas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que tenga al menos una fila V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-c-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que su columna final sea V en todas las asignaciones.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(6, 'c')">
+              <span>💡</span> <span id="btn-lbl-e6-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e6-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Una tautología exige V en todas las asignaciones. Una sola fila V es compatible con una contingencia.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>¬p</th><th>I: p ∨ ¬p</th><th>II: p ∧ ¬p</th><th>III: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e6-d">
+            <div class="ex-q-statement">¿Qué permite saber que I sea una tautología?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e6-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que la respuesta efectivamente quedó registrada.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-d-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que esa estructura es V tanto si la respuesta quedó registrada como si no.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que las respuestas de todos los estudiantes son correctas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e6-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que p y ¬p son verdaderas simultáneamente.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(6, 'd')">
+              <span>💡</span> <span id="btn-lbl-e6-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e6-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La estructura es verdadera en ambas posibilidades para p. Para averiguar si una respuesta realmente quedó registrada hace falta comprobar el registro (Copi & Cohen, 2007, pp. 361–362).</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>¬p</th><th>I: p ∨ ¬p</th><th>II: p ∧ ¬p</th><th>III: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 7 — Dos argumentos sobre un comprobante
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 7/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 7 · 4. Examinar fórmulas y argumentos</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Dos argumentos sobre un comprobante</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 7</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Caso didáctico. Sea <strong>p</strong> «Ana envía su respuesta» y <strong>q</strong> «Ana recibe un comprobante». Considera estas formas (Copi & Cohen, 2007, pp. 349–351).</p><p style="margin-bottom:0.65rem;"><blockquote><strong>Argumento I.</strong> p → q, p, ∴ q.<br><strong>Argumento II.</strong> p → q, q, ∴ p.</blockquote></p>
+        </div>
+        
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes hacer una tabla con p, q y p → q. Señala para cada argumento qué columnas son sus premisas y cuál es su conclusión. Busca una fila con todas las premisas V y conclusión F.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e7-a" onclick="switchExTab(7, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e7-b" onclick="switchExTab(7, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e7-c" onclick="switchExTab(7, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e7-d" onclick="switchExTab(7, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e7-a">
+            <div class="ex-q-statement">¿Qué evaluación resulta al revisar las cuatro filas?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e7-a-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Los dos argumentos son válidos.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Los dos argumentos son inválidos.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>I es inválido y II es válido.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-a-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>I es válido y II es inválido.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(7, 'a')">
+              <span>💡</span> <span id="btn-lbl-e7-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e7-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Para I se examinan p → q y p como premisas. Solo VV hace verdaderas ambas, y allí q es V. Para II se examinan p → q y q. FV hace verdaderas ambas y falsa la conclusión p.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e7-b">
+            <div class="ex-q-statement">¿Qué fila refuta la validez de II?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e7-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>p = V, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-b-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>p = F, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-b-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p = V, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>p = F, q = F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(7, 'b')">
+              <span>💡</span> <span id="btn-lbl-e7-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e7-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La fila FV muestra una respuesta no enviada con un comprobante recibido. La regla condicional y la recepción del comprobante son V. El sistema podría emitir un comprobante por error u otro proceso. No se afirma que eso haya ocurrido, sino que la regla no lo excluye.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e7-c">
+            <div class="ex-q-statement">En I, ¿qué ocurre en la única fila donde ambas premisas son V?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e7-c-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>q es V, por lo que no aparece allí una conclusión falsa.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>q es F, por lo que queda refutado el argumento.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p → q es F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-c-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Las dos premisas tienen valores diferentes.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(7, 'c')">
+              <span>💡</span> <span id="btn-lbl-e7-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e7-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La única fila pertinente para I es VV. La conclusión q también es V. Revisar todas las filas permite afirmar que no hay un contraejemplo formal.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e7-d">
+            <div class="ex-q-statement">Una compañera señala la fila p = V, q = F y dice que allí q es F, así que I es inválido. ¿Qué habría que revisar?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e7-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que p sea V, porque un antecedente verdadero impide usar esa fila.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-d-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que q sea F, porque solo se pueden calcular filas verdaderas.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-d-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que p → q es F en esa fila. No hay todas las premisas V y conclusión F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e7-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que la letra q aparezca tanto en una premisa como en la conclusión.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(7, 'd')">
+              <span>💡</span> <span id="btn-lbl-e7-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e7-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">En VF la conclusión q es F, pero también es F la premisa p → q. Esa fila no refuta la validez. El criterio requiere todas las premisas verdaderas al mismo tiempo que la conclusión falsa (Copi & Cohen, 2007, pp. 349–351).</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       EJERCICIO 8 — Construye un caso y discútelo con el chat
+  ════════════════════════════════ -->
+  <div class="slide slide-scroll" data-sec="Taller · Ejercicio 8/8">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Ejercicio 8 · 5. Dialogar con un modelo de lenguaje</div>
+    <div class="slide-title" style="font-size:clamp(2.0rem,3.6vw,2.9rem);">Construye un caso y discútelo con el chat</div>
+    <div class="slide-subtitle">Cuadernillo estudiantil · Clase 2 (Orden de filas: VV, VF, FV, FF)</div>
+
+    <div class="ex-container">
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>CASO DE ESTUDIO</span>
+          <span style="color:var(--accent);">Ejercicio 8</span>
+        </div>
+        <div class="ex-case-body">
+          <p style="margin-bottom:0.65rem;">Un equipo analiza cómo comprobar las respuestas de un tutor LLM. Se propone esta regla hipotética: «Si la explicación es correcta, pasa el control lógico de la ficha». Sean <strong>p</strong> «La explicación es correcta» y <strong>q</strong> «La explicación pasa el control lógico». El control examina una lista limitada de condiciones y la regla no dice que detecte todos los errores. Tema vinculado a Bastani et al. (2025). <a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener noreferrer">Estudio sobre IA y aprendizaje</a></p><p style="margin-bottom:0.65rem;">Un estudiante argumenta «La explicación pasó el control. Por tanto, es correcta». La forma completa es <strong>p → q, q, ∴ p</strong>.</p>
+        </div>
+        
+        <div class="ex-chat-box">
+          <div class="ex-proc-title" style="color:var(--purple);">Interacción con el chat</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;"><li style="margin-bottom:0.3rem;">En una hoja, completa tu tabla y describe un caso que mantenga verdaderas las dos premisas y falsa la conclusión.</li><li style="margin-bottom:0.3rem;">Envía al chat la regla, el argumento y el pedido: «Busca una situación que refute la validez de esta forma. Conserva el significado de p y q. Explica cómo quedan las dos premisas y la conclusión».</li><li style="margin-bottom:0.3rem;">Compara su propuesta con la tuya y responde con una objeción o precisión. Si propone una fila equivocada, señala cuál premisa queda falsa.</li></ol>
+        </div>
+        <div class="ex-proc-box">
+          <div class="ex-proc-title">Procedimiento escrito (Guía de razonamiento)</div>
+          <ol style="margin-left:1.15rem; font-size:0.9rem; line-height:1.48;">
+            <li style="margin-bottom:0.3rem;">Puedes anotar tu fila, el caso del chat y un cambio que hayas pedido. Las preguntas se resuelven con la regla y el argumento, cualquiera que sea la respuesta del modelo.</li>
+            <li><strong>Selección múltiple.</strong> Marca una sola opción por inciso.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ex-panel" style="max-height:calc(100vh - 210px); overflow-y:auto;">
+        <div class="ex-source-header">
+          <span>PREGUNTAS DE OPCIÓN MÚLTIPLE</span>
+          <span>4 incisos</span>
+        </div>
+        <div class="ex-tabs-bar">
+          <button class="ex-tab-btn active" id="tab-btn-e8-a" onclick="switchExTab(8, 'a')">Inciso a)</button><button class="ex-tab-btn" id="tab-btn-e8-b" onclick="switchExTab(8, 'b')">Inciso b)</button><button class="ex-tab-btn" id="tab-btn-e8-c" onclick="switchExTab(8, 'c')">Inciso c)</button><button class="ex-tab-btn" id="tab-btn-e8-d" onclick="switchExTab(8, 'd')">Inciso d)</button>
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1;">
+          
+          <div class="ex-inciso-pane active" id="pane-e8-a">
+            <div class="ex-q-statement">¿Qué par de valores debe tener un caso que refute esta forma?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e8-a-A" data-correct="true">
+                <span class="ex-opt-letter">A.</span>
+                <span>p = F, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-a-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>p = V, q = F.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-a-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>p = V, q = V.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-a-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>p = F, q = F.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(8, 'a')">
+              <span>💡</span> <span id="btn-lbl-e8-a">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e8-a">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: A</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">La fila FV conserva verdaderas ambas premisas y vuelve falsa la conclusión. Las otras filas tienen una premisa falsa o una conclusión verdadera.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>Premisa 1: p → q</th><th>Premisa 2: q</th><th>Conclusión: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e8-b">
+            <div class="ex-q-statement">¿Qué caso respeta esos valores y la regla hipotética?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e8-b-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>La explicación es correcta y pasó el control.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-b-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>La explicación es incorrecta y el control la rechazó.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-b-C" data-correct="true">
+                <span class="ex-opt-letter">C.</span>
+                <span>La explicación es incorrecta, pero superó un control que omitía ese tipo de error.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-b-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>La explicación es correcta, pero el control la rechazó.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(8, 'b')">
+              <span>💡</span> <span id="btn-lbl-e8-b">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e8-b">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: C</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Una explicación incorrecta puede pasar un control limitado que omite su error. La regla dice que una explicación correcta pasa el control, pero no establece la dirección inversa. El caso mantiene p falsa, q verdadera y p → q verdadera.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>Premisa 1: p → q</th><th>Premisa 2: q</th><th>Conclusión: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e8-c">
+            <div class="ex-q-statement">¿Qué respuesta al chat pide una comprobación pertinente?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e8-c-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>«Mantén tu primera respuesta porque la presentaste con seguridad».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-c-B">
+                <span class="ex-opt-letter">B.</span>
+                <span>«Cambia el significado de “correcta” hasta que la conclusión resulte verdadera».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-c-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>«Confirma que el tutor siempre se equivoca, ya que encontramos un caso posible».</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-c-D" data-correct="true">
+                <span class="ex-opt-letter">D.</span>
+                <span>«Calcula p → q, q y p en mi caso. Indica si todas las premisas son V y la conclusión F».</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(8, 'c')">
+              <span>💡</span> <span id="btn-lbl-e8-c">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e8-c">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: D</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Pide calcular los valores con significados constantes y aplicar el criterio de invalidez. La seguridad del modelo y el cambio de significado no verifican una inferencia.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>Premisa 1: p → q</th><th>Premisa 2: q</th><th>Conclusión: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+          <div class="ex-inciso-pane" id="pane-e8-d">
+            <div class="ex-q-statement">Si el caso contrario es correcto, ¿qué se ha mostrado?</div>
+            <div class="ex-opt-list">
+              
+              <div class="ex-opt-item" id="opt-e8-d-A">
+                <span class="ex-opt-letter">A.</span>
+                <span>Que la explicación concreta del tutor es falsa en la realidad.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-d-B" data-correct="true">
+                <span class="ex-opt-letter">B.</span>
+                <span>Que la forma no garantiza la conclusión. Para evaluar una explicación concreta hace falta examinarla.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-d-C">
+                <span class="ex-opt-letter">C.</span>
+                <span>Que todos los controles lógicos son inútiles.</span>
+              </div>
+              <div class="ex-opt-item" id="opt-e8-d-D">
+                <span class="ex-opt-letter">D.</span>
+                <span>Que p → q es una contradicción.</span>
+              </div>
+            </div>
+            <button class="ex-sol-btn" onclick="toggleExSol(8, 'd')">
+              <span>💡</span> <span id="btn-lbl-e8-d">Mostrar solución razonada</span>
+            </button>
+            <div class="ex-sol-card" id="sol-e8-d">
+              <div style="display:flex; align-items:center; gap:0.55rem; margin-bottom:0.4rem;">
+                <span style="background:var(--green); color:#ffffff; font-family:var(--font-mono); font-weight:700; font-size:0.78rem; padding:0.18rem 0.55rem; border-radius:4px;">RESPUESTA: B</span>
+                <span style="font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">Justificación del Solucionario</span>
+              </div>
+              <p style="font-size:0.93rem; line-height:1.52; color:var(--text-primary);">Se refutó la garantía formal de la inferencia desde «pasó» hasta «es correcta». Para evaluar una explicación concreta hay que examinarla. Interacción esperada: conservar p y q, señalar la fila decisiva y distinguir refutar una forma de probar falsa una afirmación particular.</p>
+              <div style="margin-top:0.55rem; overflow-x:auto;"><table class="ttbl ttbl-sm"><thead><tr><th>p</th><th>q</th><th>Premisa 1: p → q</th><th>Premisa 2: q</th><th>Conclusión: p</th></tr></thead><tbody><tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr><tr><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td></tr><tr><td class="val-f">F</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-f">F</td></tr><tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-f">F</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SLIDE 28 — RESUMEN DE LA CLASE
+  ════════════════════════════════ -->
+  <div class="slide" data-sec="">
+    <div class="sbadge"><span class="dot" style="background:var(--green)"></span>Resumen de la clase</div>
+    <div class="slide-title">¿Qué aprendimos hoy?</div>
+    <div class="sum-grid mt2">
+      <div class="sc">
+        <div class="sc-icon">⚔️</div>
+        <div class="sc-title">Demostrar &amp; Refutar</div>
+        <div class="sc-body">Tesis, razones y contratesis. Refutar una tesis no equivale a objetar una defensa débil.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-icon">📊</div>
+        <div class="sc-title">Tablas de Verdad</div>
+        <div class="sc-body">4 filas (VV, VF, FV, FF) para calcular ¬, ∧, ∨, → y ↔ de adentro hacia afuera.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-icon">🔗</div>
+        <div class="sc-title">Condiciones</div>
+        <div class="sc-body">En p → q, p es suficiente para q («si p») y q es necesaria para p («solo si q»).</div>
+      </div>
+      <div class="sc">
+        <div class="sc-icon">🧩</div>
+        <div class="sc-title">Fórmulas</div>
+        <div class="sc-body">Tautología (todas V), contradicción (todas F) y contingencia (V y F).</div>
+      </div>
+      <div class="sc">
+        <div class="sc-icon">🎯</div>
+        <div class="sc-title">Contraejemplo</div>
+        <div class="sc-body">Una forma es inválida si existe una fila con todas las premisas V y conclusión F.</div>
+      </div>
+    </div>
+    <div class="bq mt3 mx-auto" style="max-width:920px; border-left-color:var(--amber);">
+      🎯 <strong>Próxima clase (Clase 3):</strong>
+      Inducción y analogía — Generalización muestral, representatividad, contraejemplos y razonamiento por semejanza en psicología.
+    </div>
+  </div>
+
+</div><!-- /presentation -->
+
+<!-- ══════════ CONTROLS ══════════ -->
+<div id="controls">
+  <a class="cbtn" href="index.html" title="Volver al índice del curso" style="text-decoration:none; color:inherit; display:inline-flex; align-items:center; justify-content:center; font-size:16px;">⌂</a>
+  <button class="cbtn" id="btn-first" onclick="goTo(0)" title="Primera diapositiva">⟨⟨</button>
+  <button class="cbtn" id="btn-prev"  onclick="prevSlide()"  title="Anterior">‹</button>
+  <span id="counter">1 / 28</span>
+  <button class="cbtn" id="btn-next"  onclick="nextSlide()"  title="Siguiente">›</button>
+  <button class="cbtn" id="btn-last"  onclick="goTo(totalSlides-1)" title="Última diapositiva">⟩⟩</button>
+  <button class="cbtn" id="btn-fs"    onclick="toggleFS()"   title="Pantalla completa">⛶</button>
+</div>
+
+<div id="kb-hint">← → para navegar</div>
+
+<script>
+  /* ── STATE ── */
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let current = 0;
+
+  /* ── NAVIGATION ── */
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    updateUI();
+  }
+  function nextSlide() { goTo(current + 1); }
+  function prevSlide() { goTo(current - 1); }
+
+  /* ── UI UPDATE ── */
+  function updateUI() {
+    const n = current + 1;
+    document.getElementById('counter').textContent = `${n} / ${totalSlides}`;
+    document.getElementById('slide-label').textContent = `${String(n).padStart(2, '0')} / ${totalSlides}`;
+
+    const pct = totalSlides > 1 ? (current / (totalSlides - 1)) * 100 : 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+
+    document.getElementById('btn-prev').disabled  = current === 0;
+    document.getElementById('btn-first').disabled = current === 0;
+    document.getElementById('btn-next').disabled  = current === totalSlides - 1;
+    document.getElementById('btn-last').disabled  = current === totalSlides - 1;
+
+    const sec = slides[current].dataset.sec || '';
+    document.getElementById('section-label').textContent = sec;
+  }
+
+  /* ── KEYBOARD ── */
+  document.addEventListener('keydown', e => {
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ':
+        e.preventDefault(); nextSlide(); break;
+      case 'ArrowLeft': case 'ArrowUp':
+        e.preventDefault(); prevSlide(); break;
+      case 'Home': goTo(0); break;
+      case 'End':  goTo(totalSlides - 1); break;
+    }
+  });
+
+  /* ── THEME TOGGLE ── */
+  const html = document.documentElement;
+  const tBtn = document.getElementById('theme-toggle');
+  const saved = localStorage.getItem('plp-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  tBtn.textContent = saved === 'dark' ? '☀️' : '🌙';
+
+  tBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    tBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('plp-theme', next);
+  });
+
+  /* ── FULLSCREEN ── */
+  function toggleFS() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      document.getElementById('btn-fs').textContent = '✕';
+    } else {
+      document.exitFullscreen();
+      document.getElementById('btn-fs').textContent = '⛶';
+    }
+  }
+
+  /* ── INTERACTIVE CLICK CARDS ── */
+  function toggleCC(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('shown');
+    el.style.borderColor = el.classList.contains('shown') ? 'var(--border-accent)' : 'var(--border)';
+  }
+
+  /* ── INTERACTIVE SLIDE 13: COUNTEREXAMPLE ── */
+  function revealSlide13Counter() {
+    const row = document.getElementById('s13-fv-row');
+    const box = document.getElementById('s13-counter-box');
+    const lbl = document.getElementById('s13-btn-lbl');
+    if (!box) return;
+    const isShown = box.classList.contains('shown');
+    if (isShown) {
+      box.classList.remove('shown');
+      if (row) row.classList.remove('row-alert');
+      if (lbl) lbl.textContent = 'Señalar fila contraejemplo y ejemplo';
+    } else {
+      box.classList.add('shown');
+      if (row) row.classList.add('row-alert');
+      if (lbl) lbl.textContent = 'Ocultar contraejemplo';
+    }
+  }
+
+  /* ── INTERACTIVE TETRATLÓN HIGHLIGHTS ── */
+  function toggleTetraMark(prefix) {
+    const p = document.getElementById(prefix + '-p');
+    const c = document.getElementById(prefix + '-c');
+    const ind = document.getElementById(prefix + '-i');
+    const leg = document.getElementById(prefix + '-legend');
+    const btnTxt = document.getElementById(prefix + '-btn-text');
+
+    if (!p) return;
+    const isHigh = p.classList.contains('highlighted');
+    if (isHigh) {
+      p.classList.remove('highlighted');
+      if (c) c.classList.remove('highlighted');
+      if (ind) ind.classList.remove('highlighted');
+      if (leg) leg.style.display = 'none';
+      if (btnTxt) btnTxt.textContent = 'Mostrar Marcación Analítica';
+    } else {
+      p.classList.add('highlighted');
+      if (c) c.classList.add('highlighted');
+      if (ind) ind.classList.add('highlighted');
+      if (leg) leg.style.display = 'flex';
+      if (btnTxt) btnTxt.textContent = 'Ocultar Marcación';
+    }
+  }
+
+  /* ── INTERACTIVE EXERCISES TABS & SOLUTIONS ── */
+  function switchExTab(exNum, letter) {
+    const btns = document.querySelectorAll(`[id^="tab-btn-e${exNum}-"]`);
+    const panes = document.querySelectorAll(`[id^="pane-e${exNum}-"]`);
+    btns.forEach(b => b.classList.remove('active'));
+    panes.forEach(p => p.classList.remove('active'));
+
+    const targetBtn = document.getElementById(`tab-btn-e${exNum}-${letter}`);
+    const targetPane = document.getElementById(`pane-e${exNum}-${letter}`);
+    if (targetBtn) targetBtn.classList.add('active');
+    if (targetPane) targetPane.classList.add('active');
+  }
+
+  function toggleExSol(exNum, letter) {
+    const card = document.getElementById(`sol-e${exNum}-${letter}`);
+    const btnLbl = document.getElementById(`btn-lbl-e${exNum}-${letter}`);
+    const pane = document.getElementById(`pane-e${exNum}-${letter}`);
+    if (!card) return;
+
+    const isShown = card.classList.contains('shown');
+    if (isShown) {
+      card.classList.remove('shown');
+      if (btnLbl) btnLbl.textContent = 'Mostrar solución razonada';
+      if (pane) pane.querySelectorAll('.ex-opt-item').forEach(el => el.classList.remove('revealed-correct'));
+    } else {
+      card.classList.add('shown');
+      if (btnLbl) btnLbl.textContent = 'Ocultar solución';
+      if (pane) pane.querySelectorAll('.ex-opt-item[data-correct="true"]').forEach(el => el.classList.add('revealed-correct'));
+    }
+  }
+
+  /* ── INIT ── */
+  updateUI();
+</script>
+</body>
+</html>
