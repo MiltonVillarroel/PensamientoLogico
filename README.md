@@ -32,6 +32,8 @@ sitio/
 ├── clase-02.html       # Diapositivas interactivas de la Clase 2 (28 slides)
 ├── clase-03.html       # (Próxima entrega) Inducción y analogía
 ├── ...                 # (Clases 03 a 09)
+├── course-nav.js       # Panel lateral compartido para saltar entre clases y diapositivas
+├── qr.svg              # Código QR de acceso móvil al sitio
 └── README.md           # Documentación técnica y pedagógica (este archivo)
 ```
 
@@ -221,7 +223,9 @@ Al comenzar la maquetación de una nueva clase (ej. `clase-02.html`):
    * **Diapositivas de Ejercicios del Cuadernillo:** Usar la plantilla de dos paneles (caso y procedimiento a la izquierda; selector de pestañas `switchExTab` e incisos con `toggleExSol` a la derecha). Revisar que cada pregunta sea clara, directa y libre de ambigüedades según la sección 4.5, y convertir todo formato Markdown (`**negrita**`, enlaces) a HTML válido.
 4. **Diapositiva de Cierre:**
    * Diapositiva final de síntesis con los 4 o 5 aprendizajes observables de la sesión.
-5. **Actualización de `index.html`:**
+5. **Actualización de `index.html` y `course-nav.js`:**
+   * En la nueva clase (`clase-NN.html`), incluir `<script src="course-nav.js"></script>` antes de `</body>` para habilitar el panel lateral de navegación (`☰ Clases` o tecla `M`).
+   * En `course-nav.js`, cambiar `ready: false` a `ready: true` en la entrada de la clase publicada para que sea accesible desde todas las demás clases.
    * En la tarjeta correspondiente de la sesión en `index.html`:
      * Cambiar el estado de `<span class="status-badge upcoming">En preparación</span>` a `<span class="status-badge published">Disponible</span>`.
      * Reemplazar el contenedor deshabilitado por el enlace activo: `<a href="clase-NN.html" class="class-card active-card">`.
