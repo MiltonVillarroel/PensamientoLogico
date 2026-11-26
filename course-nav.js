@@ -346,6 +346,92 @@
       border-color: var(--brand-accent);
       background: var(--bg-card);
     }
+
+    /* Selección interactiva y corrección de opciones en ejercicios */
+    .ex-opt-item {
+      cursor: pointer;
+      user-select: none;
+    }
+    .ex-inciso-pane:not(.ex-sol-open) .ex-opt-item:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-accent);
+    }
+    .ex-inciso-pane.ex-sol-open .ex-opt-item {
+      cursor: default;
+    }
+    .ex-opt-item:focus-visible {
+      outline: 2px solid var(--brand-accent);
+      outline-offset: 2px;
+    }
+    .ex-opt-item.selected:not(.revealed-wrong):not(.revealed-correct) {
+      background: var(--brand-light);
+      border-color: var(--brand-accent);
+      box-shadow: inset 3px 0 0 var(--brand-accent);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .ex-opt-item.selected:not(.revealed-wrong):not(.revealed-correct)::after {
+      content: 'Marcada';
+      margin-left: auto;
+      padding-left: 0.65rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+      font-family: var(--font-mono, 'Roboto Mono', monospace);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--brand-accent);
+    }
+    .ex-opt-item.revealed-correct {
+      background: rgba(4, 120, 87, 0.13);
+      border-color: var(--green);
+      box-shadow: inset 3px 0 0 var(--green);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    [data-theme="dark"] .ex-opt-item.revealed-correct {
+      background: rgba(52, 211, 153, 0.18);
+    }
+    .ex-opt-item.revealed-correct .ex-opt-letter {
+      color: var(--green);
+    }
+    .ex-opt-item.revealed-correct::after {
+      content: '✓ Correcta';
+      margin-left: auto;
+      padding-left: 0.65rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+      font-family: var(--font-mono, 'Roboto Mono', monospace);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .ex-opt-item.selected.revealed-correct::after {
+      content: '✓ Tu elección';
+    }
+    .ex-opt-item.revealed-wrong {
+      background: rgba(220, 38, 38, 0.14);
+      border-color: var(--red, #dc2626);
+      box-shadow: inset 3px 0 0 var(--red, #dc2626);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    [data-theme="dark"] .ex-opt-item.revealed-wrong {
+      background: rgba(248, 113, 113, 0.20);
+    }
+    .ex-opt-item.revealed-wrong .ex-opt-letter {
+      color: var(--red, #dc2626);
+    }
+    .ex-opt-item.revealed-wrong::after {
+      content: '✗ Tu elección';
+      margin-left: auto;
+      padding-left: 0.65rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+      font-family: var(--font-mono, 'Roboto Mono', monospace);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--red, #dc2626);
+    }
   `;
   document.head.appendChild(style);
 
@@ -618,4 +704,78 @@
     window.goTo(initialIdx);
   }
   syncActiveSlide(true);
+
+  // Marcar respuesta en ejercicios antes de ver la solución y señalar acierto/error al revelarla
+  const exOpts = document.querySelectorAll('.ex-inciso-pane .ex-opt-item');
+  if (exOpts.length > 0) {
+    exOpts.forEach(opt => {
+      opt.setAttribute('role', 'button');
+      opt.setAttribute('tabindex', '0');
+      opt.setAttribute('aria-pressed', 'false');
+    });
+
+    function toggleOptionChoice(opt) {
+      const pane = opt.closest('.ex-inciso-pane');
+      if (!pane || pane.classList.contains('ex-sol-open')) return;
+      const wasSelected = opt.classList.contains('selected');
+      pane.querySelectorAll('.ex-opt-item').forEach(el => {
+        el.classList.remove('selected');
+        el.setAttribute('aria-pressed', 'false');
+      });
+      if (!wasSelected) {
+        opt.classList.add('selected');
+        opt.setAttribute('aria-pressed', 'true');
+      }
+    }
+
+    document.addEventListener('click', e => {
+      const opt = e.target && e.target.closest('.ex-inciso-pane .ex-opt-item');
+      if (opt) toggleOptionChoice(opt);
+    });
+
+    document.addEventListener('keydown', e => {
+      const opt = e.target && e.target.closest && e.target.closest('.ex-inciso-pane .ex-opt-item');
+      if (!opt) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        toggleOptionChoice(opt);
+      }
+    }, true);
+
+    window.toggleExSol = function (exNum, letter) {
+      const card = document.getElementById(`sol-e${exNum}-${letter}`);
+      const btnLbl = document.getElementById(`btn-lbl-e${exNum}-${letter}`);
+      const pane = document.getElementById(`pane-e${exNum}-${letter}`);
+      if (!card) return;
+
+      const isShown = card.classList.contains('shown');
+      if (isShown) {
+        card.classList.remove('shown');
+        if (btnLbl) btnLbl.textContent = 'Mostrar solución razonada';
+        if (pane) {
+          pane.classList.remove('ex-sol-open');
+          pane.querySelectorAll('.ex-opt-item').forEach(el => {
+            el.classList.remove('revealed-correct', 'revealed-wrong');
+          });
+        }
+      } else {
+        card.classList.add('shown');
+        if (btnLbl) btnLbl.textContent = 'Ocultar solución';
+        if (pane) {
+          pane.classList.add('ex-sol-open');
+          pane.querySelectorAll('.ex-opt-item').forEach(el => {
+            el.classList.remove('revealed-correct', 'revealed-wrong');
+            const isCorrect = el.getAttribute('data-correct') === 'true';
+            const isSelected = el.classList.contains('selected');
+            if (isCorrect) {
+              el.classList.add('revealed-correct');
+            } else if (isSelected) {
+              el.classList.add('revealed-wrong');
+            }
+          });
+        }
+      }
+    };
+  }
 })();
