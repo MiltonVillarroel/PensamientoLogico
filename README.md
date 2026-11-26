@@ -159,8 +159,9 @@ themeToggleBtn.addEventListener('click', () => {
 ```
 
 ### 4.2. Motor de Navegación de Diapositivas
-* **Controles por teclado:** `ArrowRight`, `ArrowDown`, `Barra Espaciadora` (avanzar); `ArrowLeft`, `ArrowUp` (retroceder); `Home` (inicio); `End` (fin).
-* **Controles táctiles y ratón:** Barra inferior con botones `⟨⟨` (primera), `‹` (anterior), contador `n / total`, `›` (siguiente), `⟩⟩` (última), botón `⛶` (pantalla completa) y botón `⌂` (retorno al índice).
+* **Controles por teclado:** `ArrowRight`, `ArrowDown`, `Barra Espaciadora` (avanzar); `ArrowLeft`, `ArrowUp` (retroceder); `Home` (inicio); `End` (fin); tecla `M` (abrir/cerrar panel lateral de clases); `Esc` (cerrar panel).
+* **Controles táctiles, ratón y salto numérico directo:** Barra inferior con botones `⟨⟨` (primera), `‹` (anterior), selector numérico editable `[ n ] / total` (gestionado por `course-nav.js` para escribir un número y pulsar `Enter`), `›` (siguiente), `⟩⟩` (última), botón `⛶` (pantalla completa) y botón `⌂` (retorno al índice).
+* **Memoria automática de posición:** `course-nav.js` guarda en `localStorage` (`plp-slide:<archivo>`) y en el hash de la URL (`#slide=n`) la última diapositiva visitada de cada clase, permitiendo cambiar a otra clase o recargar la página y regresar exactamente donde se quedó.
 * **Cálculo dinámico:** `totalSlides` se evalúa mediante `document.querySelectorAll('.slide').length`, adaptándose automáticamente al añadir o remover diapositivas.
 
 ### 4.3. Módulo Tetratlón (Marcación Analítica)

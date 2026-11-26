@@ -309,6 +309,43 @@
     @media (max-width: 960px) {
       #section-label { display: none; }
     }
+
+    /* Selector numérico editable en la barra inferior */
+    #cnav-counter-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono, 'Roboto Mono', monospace);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0 4px;
+    }
+    #cnav-jump-input {
+      width: 38px;
+      height: 26px;
+      text-align: center;
+      font-family: var(--font-mono, 'Roboto Mono', monospace);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      -moz-appearance: textfield;
+    }
+    #cnav-jump-input::-webkit-outer-spin-button,
+    #cnav-jump-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    #cnav-jump-input:hover,
+    #cnav-jump-input:focus {
+      border-color: var(--brand-accent);
+      background: var(--bg-card);
+    }
   `;
   document.head.appendChild(style);
 
@@ -419,15 +456,65 @@
   const closeBtn = document.getElementById('cnav-close-btn');
   const slideBtns = Array.from(drawer.querySelectorAll('.cnav-slide-btn'));
 
-  function syncActiveSlide() {
-    const activeIdx = slideEls.findIndex(s => s.classList.contains('active'));
+  // Clave persistente por clase para recordar la última diapositiva visitada
+  const canonicalFile = currentFile.endsWith('.html') ? currentFile : `${currentFile}.html`;
+  const SLIDE_STORAGE_KEY = `plp-slide:${canonicalFile || 'default'}`;
+
+  // Selector numérico editable en #controls (mantiene #counter oculto para no romper updateUI)
+  let jumpInput = null;
+  const legacyCounter = document.getElementById('counter');
+  if (legacyCounter && legacyCounter.parentElement && slideEls.length > 0) {
+    legacyCounter.style.display = 'none';
+    const box = document.createElement('span');
+    box.id = 'cnav-counter-box';
+    box.innerHTML = `<input id="cnav-jump-input" type="number" min="1" max="${slideEls.length}" value="1" aria-label="Número de diapositiva" title="Escribe un número (1–${slideEls.length}) y pulsa Enter para saltar"> <span>/ ${slideEls.length}</span>`;
+    legacyCounter.parentElement.insertBefore(box, legacyCounter.nextSibling);
+    jumpInput = document.getElementById('cnav-jump-input');
+  }
+
+  function getActiveIndex() {
+    const idx = slideEls.findIndex(s => s.classList.contains('active'));
+    return idx >= 0 ? idx : 0;
+  }
+
+  function syncActiveSlide(persist = true) {
+    const activeIdx = getActiveIndex();
     slideBtns.forEach((b, i) => {
       b.classList.toggle('is-active', i === activeIdx);
     });
+    if (jumpInput && document.activeElement !== jumpInput) {
+      jumpInput.value = String(activeIdx + 1);
+    }
+    if (persist) {
+      try {
+        localStorage.setItem(SLIDE_STORAGE_KEY, String(activeIdx));
+        history.replaceState(null, '', `#slide=${activeIdx + 1}`);
+      } catch (_) {}
+    }
+  }
+
+  function commitJumpInput() {
+    if (!jumpInput) return;
+    const raw = parseInt(jumpInput.value, 10);
+    if (!Number.isNaN(raw) && slideEls.length > 0) {
+      const clamped = Math.max(1, Math.min(slideEls.length, raw));
+      if (typeof window.goTo === 'function') {
+        window.goTo(clamped - 1);
+      }
+      jumpInput.value = String(clamped);
+    } else {
+      jumpInput.value = String(getActiveIndex() + 1);
+    }
+  }
+
+  if (jumpInput) {
+    jumpInput.addEventListener('focus', () => jumpInput.select());
+    jumpInput.addEventListener('change', commitJumpInput);
+    jumpInput.addEventListener('blur', commitJumpInput);
   }
 
   function openDrawer() {
-    syncActiveSlide();
+    syncActiveSlide(false);
     drawer.classList.add('open');
     backdrop.classList.add('open');
     btn.setAttribute('aria-expanded', 'true');
@@ -461,8 +548,29 @@
     });
   });
 
-  // Tecla M para abrir/cerrar, Esc para cerrar, y evitar que las flechas/espacio muevan slides mientras el panel está abierto
+  // Tecla M para abrir/cerrar, Esc para cerrar, y proteger el input numérico y el panel abierto
   document.addEventListener('keydown', e => {
+    if (jumpInput && document.activeElement === jumpInput) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        commitJumpInput();
+        jumpInput.blur();
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        jumpInput.value = String(getActiveIndex() + 1);
+        jumpInput.blur();
+        return;
+      }
+      if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', ' ', 'Home', 'End'].includes(e.key)) {
+        e.stopImmediatePropagation();
+        return;
+      }
+    }
+
     const isOpen = drawer.classList.contains('open');
     if (e.key === 'Escape' && isOpen) {
       e.preventDefault();
@@ -484,5 +592,30 @@
     }
   }, true);
 
-  syncActiveSlide();
+  // Observar cambios en la diapositiva activa para sincronizar contador y guardar posición
+  const pres = document.getElementById('presentation');
+  if (pres && typeof MutationObserver !== 'undefined') {
+    const obs = new MutationObserver(() => syncActiveSlide(true));
+    obs.observe(pres, { attributes: true, attributeFilter: ['class'], subtree: true });
+  }
+
+  // Restaurar diapositiva desde hash (#slide=N) o desde localStorage
+  let initialIdx = null;
+  const hashMatch = window.location.hash.match(/^#slide=(\d+)$/);
+  if (hashMatch) {
+    const n = parseInt(hashMatch[1], 10);
+    if (n >= 1 && n <= slideEls.length) initialIdx = n - 1;
+  } else {
+    try {
+      const saved = parseInt(localStorage.getItem(SLIDE_STORAGE_KEY), 10);
+      if (!Number.isNaN(saved) && saved >= 0 && saved < slideEls.length) {
+        initialIdx = saved;
+      }
+    } catch (_) {}
+  }
+
+  if (initialIdx !== null && initialIdx !== getActiveIndex() && typeof window.goTo === 'function') {
+    window.goTo(initialIdx);
+  }
+  syncActiveSlide(true);
 })();
