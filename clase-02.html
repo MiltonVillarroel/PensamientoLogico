@@ -1033,11 +1033,16 @@
   <div class="slide slide-scroll" data-sec="Bloque 4 · Contraejemplo Formal">
     <div class="sbadge"><span class="dot" style="background:var(--purple)"></span>Bloque 4 · 75–90 min · Copi &amp; Cohen § 8.4</div>
     <div class="slide-title">¿Cuándo es válida o inválida una forma?</div>
-    <div class="slide-subtitle">Un argumento es <strong>válido</strong> si su condicional asociado (<span class="logic">(Premisas) → Conclusión</span>) da <strong class="val-v">V</strong> en todas las filas (tautología)</div>
-    <div class="two-cols mt1" style="max-width:1160px; align-items:start;">
+    <div class="slide-subtitle">Sea <span class="logic">p</span> = «Llueve» y <span class="logic">q</span> = «Estoy mojado» · Válido si <span class="logic">(Premisas) → Conclusión</span> da <strong class="val-v">V</strong> en todas las filas</div>
+    <div class="two-cols mt1" style="max-width:1180px; align-items:start;">
       <div class="card" style="border-top:4px solid var(--green);">
-        <div class="card-label" style="color:var(--green);">Forma I · Válida (p → q, p, ∴ q)</div>
-        <table class="ttbl mt1" style="font-size:clamp(.86rem, 1.1vw, 1.04rem);">
+        <div class="card-label" style="color:var(--green);">Modus Ponens correcto · Válido (p → q, p, ∴ q)</div>
+        <div class="arg-box mt1" style="padding:10px 14px; background:var(--bg-subtle); box-shadow:none;">
+          <div class="arg-row" style="padding:4px 0; font-size:0.95rem;"><span class="arg-lbl hi">P1</span><span><strong>p → q:</strong> Si llueve, estoy mojado.</span></div>
+          <div class="arg-row" style="padding:4px 0; font-size:0.95rem;"><span class="arg-lbl hi">P2</span><span><strong>p:</strong> Llueve.</span></div>
+          <div class="arg-row" style="padding:6px 0 2px; font-size:0.95rem;"><span class="arg-lbl hi-g">∴ C</span><span><strong>q:</strong> Por tanto, estoy mojado.</span></div>
+        </div>
+        <table class="ttbl mt2" style="font-size:clamp(.84rem, 1.05vw, 1.0rem);">
           <thead><tr><th>p</th><th>q</th><th>p → q</th><th>(p → q) ∧ p</th><th style="background:rgba(4,120,87,0.12); color:var(--green);">((p → q) ∧ p) → q</th></tr></thead>
           <tbody>
             <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v row-valid">V</td></tr>
@@ -1046,13 +1051,18 @@
             <tr><td class="val-f">F</td><td class="val-f">F</td><td class="val-v">V</td><td class="val-f">F</td><td class="val-v row-valid">V</td></tr>
           </tbody>
         </table>
-        <div class="card-body mt2" style="font-size:0.95rem;">
-          ✅ La columna final es <strong class="val-v">V</strong> en las 4 filas (<strong>tautología</strong>): nunca ocurre que las premisas juntas sean V y la conclusión F. Forma válida.
+        <div class="card-body mt2" style="font-size:0.93rem;">
+          ✅ La columna final es <strong class="val-v">V</strong> en las 4 filas (<strong>tautología</strong>): si llueve y se cumple la regla, es imposible no estar mojado. Forma válida.
         </div>
       </div>
       <div class="card" style="border-top:4px solid var(--pink);">
-        <div class="card-label" style="color:var(--pink);">Forma II · Inválida (p → q, q, ∴ p)</div>
-        <table class="ttbl mt1" style="font-size:clamp(.86rem, 1.1vw, 1.04rem);">
+        <div class="card-label" style="color:var(--pink);">«Modus Ponens» incorrecto · Inválido (p → q, q, ∴ p)</div>
+        <div class="arg-box mt1" style="padding:10px 14px; background:var(--bg-subtle); box-shadow:none;">
+          <div class="arg-row" style="padding:4px 0; font-size:0.95rem;"><span class="arg-lbl hi">P1</span><span><strong>p → q:</strong> Si llueve, estoy mojado.</span></div>
+          <div class="arg-row" style="padding:4px 0; font-size:0.95rem;"><span class="arg-lbl hi">P2</span><span><strong>q:</strong> Estoy mojado.</span></div>
+          <div class="arg-row" style="padding:6px 0 2px; font-size:0.95rem;"><span class="arg-lbl hi-k">∴ C</span><span><strong>p:</strong> Por tanto, llueve.</span></div>
+        </div>
+        <table class="ttbl mt2" style="font-size:clamp(.84rem, 1.05vw, 1.0rem);">
           <thead><tr><th>p</th><th>q</th><th>p → q</th><th>(p → q) ∧ q</th><th style="background:rgba(190,24,93,0.10); color:var(--pink);">((p → q) ∧ q) → p</th></tr></thead>
           <tbody>
             <tr><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td><td class="val-v">V</td></tr>
@@ -1066,7 +1076,7 @@
         </button>
         <div class="ex-sol-card mt1" id="s13-counter-box" style="border-left-color:var(--pink); background:rgba(190,24,93,0.08);">
           <strong>Fila 3 (p = F, q = V):</strong> Las premisas juntas (<span class="logic">(p → q) ∧ q</span>) son <strong class="val-v">V</strong> y la conclusión (<span class="logic">p</span>) es <strong class="val-f">F</strong>, por lo que la columna final da <strong class="val-f">F</strong> (no es tautología).<br>
-          <em>En palabras:</em> «Si recibo notificación (<span class="logic">p</span>), se ilumina la pantalla (<span class="logic">q</span>). Se iluminó (<span class="val-v">V</span>), pero no recibí notificación (<span class="val-f">F</span>): alguien encendió la pantalla con el botón».
+          <em>En palabras:</em> <strong>No llueve</strong> (<span class="val-f">F</span>), pero <strong>estoy mojado</strong> (<span class="val-v">V</span>) porque me mojé con una manguera o salí de la ducha.
         </div>
       </div>
     </div>
