@@ -30,8 +30,9 @@ sitio/
 ├── index.html          # Portal institucional y directorio de las 9 clases
 ├── clase-01.html       # Diapositivas interactivas de la Clase 1 (38 slides)
 ├── clase-02.html       # Diapositivas interactivas de la Clase 2 (28 slides)
-├── clase-03.html       # (Próxima entrega) Inducción y analogía
-├── ...                 # (Clases 03 a 09)
+├── clase-03.html       # Diapositivas interactivas de la Clase 3 (31 slides)
+├── clase-04.html       # (Próxima entrega) Deducción y reglas de inferencia
+├── ...                 # (Clases 04 a 09)
 ├── course-nav.js       # Panel lateral compartido para saltar entre clases y diapositivas
 ├── qr.svg              # Código QR de acceso móvil al sitio
 └── README.md           # Documentación técnica y pedagógica (este archivo)
@@ -195,7 +196,7 @@ A continuación se detalla la hoja de ruta temática y bibliográfica establecid
 |:---:|---|---|---|---|
 | **01** | `clase-01.html` | Introducción y Cap. I (pp. 4–11). | Copi & Cohen caps. 1 y 8; Weston cap. I. | Prototipos, Tetratlón (4 fragmentos) y 9 ejercicios complementarios. *(Completada)* |
 | **02** | `clase-02.html` | Cap. II. Demostración y refutación (pp. 12–15). | Copi & Cohen cap. 8 (tablas de verdad, condicionales, condiciones necesarias y suficientes); Weston caps. I y VII. | Prototipos (Nietzsche, Ferrater Mora), Tetratlón II (Jung, Russell, Bunge, Piaget) y 8 ejercicios complementarios. *(Completada)* |
-| **03** | `clase-03.html` | Cap. III. Inducción y Cap. IV. Analogía (pp. 16–23). | Weston caps. II–III (ejemplos, representatividad, contraejemplos); Copi cap. 11 (evaluación de analogías). | Dos Tetratlones (III y IV), comparación de generalización por casos vs. inferencia por semejanza en psicología. |
+| **03** | `clase-03.html` *(Completada)* | Cap. III. Inducción y Cap. IV. Analogía (pp. 16–23). | Weston caps. II–III (ejemplos, representatividad, contraejemplos); Copi cap. 11 (evaluación de analogías). | Dos Tetratlones (III y IV), 9 ejercicios de generalización y analogía en psicología. |
 | **04** | `clase-04.html` | Cap. V. Deducción (pp. 24–27). | Copi & Cohen caps. 7 y 9 (Modus Ponens, Modus Tollens, silogismos disyuntivo e hipotético, reglas de inferencia). | Tetratlón V, formalización de argumentos en lenguaje proposicional y deducciones de pocos pasos con justificación de regla. |
 | **05** | `clase-05.html` | Cap. VI. Argumentaciones múltiples (pp. 28–31). | Copi & Cohen caps. 8–9 (equivalencias lógicas, De Morgan, condicional, doble negación). | Tetratlón VI, distinción entre argumentos encadenados y yuxtapuestos, conclusiones intermedias y demostraciones paso a paso. |
 | **06** | `clase-06.html` | Aplicación práctica de V y VI. | Copi & Cohen caps. 5–6 (proposiciones categóricas A, E, I, O; términos S, P, M; diagramas de Venn). | Traducción de enunciados cotidianos a forma estándar, validación geométrica con diagramas de Venn y explicación de falacias silogísticas. |

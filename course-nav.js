@@ -8,7 +8,7 @@
   const COURSE_CLASSES = [
     { num: '01', file: 'clase-01.html', title: 'Argumentación y primeras herramientas', ready: true },
     { num: '02', file: 'clase-02.html', title: 'Demostración, refutación y tablas de verdad', ready: true },
-    { num: '03', file: 'clase-03.html', title: 'Inducción y analogía', ready: false },
+    { num: '03', file: 'clase-03.html', title: 'Inducción y analogía', ready: true },
     { num: '04', file: 'clase-04.html', title: 'Deducción y reglas de inferencia', ready: false },
     { num: '05', file: 'clase-05.html', title: 'Argumentaciones múltiples', ready: false },
     { num: '06', file: 'clase-06.html', title: 'Silogismos categóricos', ready: false },
